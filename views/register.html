@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<div class="container">
+    <form>
+        <fieldset>
+            <legent>Ceer un compte</legent>
+        </fieldset>
+            <div>
+                <label for="firstname" class="active">Prenom</label>
+                <input id="firstname" type="text" class="validate" required>
+            </div>
+            <div>
+                <label for="lastName" class="active">Nom</label>
+                <input id="lastName" type="text" class="validate" required>
+            </div>
+            <div>
+                <label for="email" class="active">Email</label>
+                <input id="email" type="email" class="validate" placeholder="user@exemple.com" required>
+            </div>
+            <div>
+                <label for="password" class="active">Mot de passe</label>
+                <input id="password" type="password" class="validate" required>
+            </div>
+    </form>
+
+    <div class="row">
+        <a class="waves-effect waves-light btn" onclick="registerController.createAccount()">Creer un compte</a>
+    </div>
+</div>

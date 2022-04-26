@@ -11,4 +11,10 @@ class BaseController {
             navigate(view)
         }; history.pushState({}, '');
     }
+
+    removeAllChildNodes(parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+    }
 }
