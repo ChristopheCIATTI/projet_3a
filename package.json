@@ -1,0 +1,21 @@
+{
+  "name": "Projet_3A_backend",
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.9.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "path": "^0.12.7",
+    "pg": "^7.18.2"
+  },
+  "scripts": {
+    "run": "node main.js",
+    "debug": "node --inspect --inspect-brk main.js"
+  }
+}
