@@ -6,7 +6,6 @@ class IndexController extends BaseController {
         this.model = new Model()
         
         this.displayArticles()
-
     }
 
     /*
@@ -30,10 +29,11 @@ loadfooter = () => {
 };
     */
 
-
+    /*
     sayHello() {
         this.toast("bonjourToast")
     }
+    */
 
     async displayArticles() {
 

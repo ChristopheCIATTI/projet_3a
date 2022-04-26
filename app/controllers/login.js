@@ -2,17 +2,8 @@ class LoginController extends BaseFormController {
     constructor() {
         super(false)
         this.model = new Model()
-        this.ifLogged()
+        //this.ifLogged()
         //this.checkToken()
-    }
-
-    saysHello() {
-        let p = document.createElement("p")
-        let textnode = document.createTextNode("hello world checked");
-
-        p.appendChild(textnode)
-        document.appendChild(p)
-        console.log("Hello world!")
     }
 
     ifLogged() {

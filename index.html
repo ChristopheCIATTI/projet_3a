@@ -9,31 +9,35 @@
     <link rel="stylesheet" type="text/css" href="res/css/index.css"/>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Blog</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-item nav-link" href="#" onclick="navigate('index')">Home</a>
-            <!-- If avec mon profil et login --> 
-            <a class="nav-item nav-link" href="#" onclick="navigate('login')">Login</a>
-          </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Blog</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="#" onclick="navigate('index')">Home</a>
+          <!-- If avec mon profil et login --> 
+          <a class="nav-item nav-link" href="#" onclick="navigate('login')">Login</a>
         </div>
-    </nav>
+      </div>
+  </nav>
 
-    <div id="content"></div>
-
-    <script type="application/ecmascript" src="app/tools.js"></script>
-    <script type="application/ecmascript" src="app/model/classes.js"></script>
-    <script type="application/ecmascript" src="app/model/model.js"></script>
-    <script type="application/ecmascript" src="app/services/baseapiservice.js"></script>
-    <script type="application/ecmascript" src="app/services/articleapi.js"></script>
-    <script type="application/ecmascript" src="app/services/userapi.js"></script>
-    <script type="application/ecmascript" src="app/controllers/basecontroller.js"></script>
-    <script type="application/ecmascript" src="app/controllers/baseformcontroller.js"></script>
-    
-    <script>navigate("index")</script>
+  <div id="content"></div>
+  <!--<script type="application/ecmascript" src="app/tools.js"></script>-->
+  <!--<script type="module" src="app/tools.js"></script>-->
+  
+  <script type="application/ecmascript" src="app/tools.js"></script>
+  <script type="application/ecmascript" src="app/model/classes.js"></script>
+  <script type="application/ecmascript" src="app/model/model.js"></script>
+  <script type="application/ecmascript" src="app/services/baseapiservice.js"></script>
+  <script type="application/ecmascript" src="app/services/articleapi.js"></script>
+  <script type="application/ecmascript" src="app/services/userapi.js"></script>
+  <script type="application/ecmascript" src="app/controllers/basecontroller.js"></script>
+  <script type="application/ecmascript" src="app/controllers/baseformcontroller.js"></script>
+  
+  <script>navigate("index")</script>
+  <script>console.log(window)</script>
+  <script>console.log(window.top)</script>
 </body>
 </html>

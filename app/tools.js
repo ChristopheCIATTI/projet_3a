@@ -1,3 +1,22 @@
+/*module.exports = class tools {
+
+    $(selector, f) {
+        if (f == undefined)
+            return document.querySelector(selector)
+        else 
+            document.querySelectorAll(selector).forEach(f)
+    }
+
+    navigate(view) {
+        include('content',  `views/${view}.html`, `app/controllers/${view}.js`)
+    }
+}*/
+/*
+export default function navigate(view) {
+    include('content',  `views/${view}.html`, `app/controllers/${view}.js`)
+}
+*/
+
 function $(selector, f) {
     if (f == undefined)
         return document.querySelector(selector)
@@ -37,6 +56,7 @@ function include(selector, url, urlcontroller) {
         });
 }
 
+
 function navigate(view) {
     include('content',  `views/${view}.html`, `app/controllers/${view}.js`)
 }
@@ -53,3 +73,4 @@ function getParameterByName(name) {
     let match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
+
