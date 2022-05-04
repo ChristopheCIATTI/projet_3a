@@ -1,4 +1,3 @@
-//const mysql =  require('mysql2/promise')
 const mysql =  require('mysql2')
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -33,12 +32,11 @@ const userService = new UserService(db)
 const ArticleService = require("./services/article")
 const articleService = new ArticleService(db)
 
-
-//const jwt = require('./jwt')(userAccountService, userService)
+const jwt = require('./jwt')(userService)
 
 //require('./api/useraccount')(app, userAccountService, jwt)
 require("./api/article")(app, articleService /*, jwt*/)
-require("./api/user")(app, userService /*, jwt*/)
+require("./api/user")(app, userService, jwt)
 require('./datamodel/seeder')( 
     articleService,
     userService

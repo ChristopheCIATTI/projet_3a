@@ -2,6 +2,7 @@ const { json } = require("body-parser")
 
 module.exports = (app, svc, /*jwt*/) => {
 
+    // Get all article
     app.get("/article", /*jwt.validateJWT,*/ async (req, res) => {
         try {
             const article = await svc.dao.getAllArticle()
@@ -10,6 +11,7 @@ module.exports = (app, svc, /*jwt*/) => {
         catch(e) {console.log(e)}
     })
 
+    // Get number of article
     app.get("/article/count", /*jwt.validateJWT,*/ async (req, res) => {
         try {
             const articleNumber = await svc.dao.getNumberArticles()
@@ -21,6 +23,7 @@ module.exports = (app, svc, /*jwt*/) => {
         catch(e) {console.log(e)}
     })
 
+    // Get one of article by his id
     app.get("/article/id/:id", /*jwt.validateJWT,*/ async (req, res) => {
         const id = req.params.id
         try {
@@ -30,6 +33,7 @@ module.exports = (app, svc, /*jwt*/) => {
         catch(e) {console.log(e)}
     })
 
+    // Get article by his author
     app.get("/article/author/:author", /*jwt.validateJWT,*/ async (req, res) => {
         const author = req.params.author
         try {
@@ -39,6 +43,7 @@ module.exports = (app, svc, /*jwt*/) => {
         catch(e) {console.log(e)}
     })
 
+    // WTF ???!
     app.get("/article/author/:author/id/:id", /*jwt.validateJWT,*/ async (req, res) => {
         const id = req.params.id
         const author = req.params.author
@@ -50,6 +55,7 @@ module.exports = (app, svc, /*jwt*/) => {
         catch(e) {console.log(e)}
     })
 
+    // Get article by his title
     app.get("/article/title/:title", /*jwt.validateJWT,*/ async (req, res) => {
         const title = req.params.title
 

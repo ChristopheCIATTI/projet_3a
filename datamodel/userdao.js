@@ -19,7 +19,7 @@ module.exports = class UserDAO extends BaseDAO {
 
     getUserByEmail(email) {
         return new Promise((resolve, reject) => {
-            this.db.query("SELECT * FROM user WHERE email = ? ", [email], (err, rows, fields) => {
+            this.db.query("SELECT user.firstname, user.middleName, user.lastName, user.mobile, user.email, user.registeredAt, user.lastLogin FROM user WHERE email = ? ", [email], (err, rows, fields) => {
                 if (err) {
                     return reject(err);
                 }
@@ -50,10 +50,22 @@ module.exports = class UserDAO extends BaseDAO {
             })
         })
     }
-    /*
+
+    getUserEmailByEmail(email) {
+        return new Promise((resolve, reject) => {
+            this.db.query("SELECT email FROM user WHERE email = ?", [email], (err, rows, fields) => {
+                if (err) {
+                    return reject(err);
+                }
+                rows = rows
+                resolve(rows);
+            })
+        })
+    }
+
     getIdByEmail(email) {
         return new Promise((resolve, reject) => {
-            this.db.query("SELECT id FROM user WHERE email_address = ? ", [email], (err, rows, fields) => {
+            this.db.query("SELECT id FROM user WHERE email = ? ", [email], (err, rows, fields) => {
                 if (err) {
                     return reject(err);
                 }
@@ -61,7 +73,6 @@ module.exports = class UserDAO extends BaseDAO {
             })    
         })
     }
-    */
   
     updateLastLogin(lastLogin, email) {
         return new Promise((resolve, reject) => {

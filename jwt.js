@@ -2,9 +2,19 @@ const jwt = require('jsonwebtoken')
 const jwtKey = 'backnode'
 const jwtExpirySeconds = 3600
 
-module.exports = (userAccountService, userService) => {
+module.exports = (userService) => {
     return {
         validateJWT(req, res, next) {
+            const httpStatus200 = 200
+            const httpStatus401 = 401
+
+            const tokenVerified = {
+                httpStatus: null,
+                verifiedMessage: null
+            }
+
+
+            console.log("validateJWT")
 
             if (req.headers.authorization === undefined) {
                 res.status(401).end()
@@ -14,7 +24,7 @@ module.exports = (userAccountService, userService) => {
             //const token = req.headers.authorization.split(" ")[1];
             const token = req.headers.authorization
             //console.log(req.headers.authorization)
-
+            /*
             jwt.verify(token, jwtKey, {algorithm: "HS256"}, async (err, user) => {
                 if(err) {
                     res.status(401).end()
@@ -30,8 +40,22 @@ module.exports = (userAccountService, userService) => {
                     console.log(e)
                    res.status(401).end()
                 }
-            })
+            })*/
+            try {
+                tokenVerified.verifiedMessage = jwt.verify(token, jwtKey);
+                console.log(tokenVerified.verifiedMessage)
+                tokenVerified.httpStatus = httpStatus200
+                return res.status(httpStatus200).end()
+                //return res.json(tokenVerified)
+                //next();
+                //res.status(200).end()
+            }
+            catch(e) {
+                console.log(e)
+                return res.status(httpStatus401).end()
+            }
         },
+
         generateJWT(login) {
             return jwt.sign({login}, jwtKey, {
                 algorithm: 'HS256',
