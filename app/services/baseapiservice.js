@@ -25,6 +25,7 @@ class BaseAPIService {
     }
 
     sendToken() {
-        return "Bearer" + " " + this.token
+        //return "Bearer" + " " + this.token
+        return this.token
     }
 }

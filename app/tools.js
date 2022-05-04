@@ -56,10 +56,23 @@ function include(selector, url, urlcontroller) {
         });
 }
 
-
 function navigate(view) {
     include('content',  `views/${view}.html`, `app/controllers/${view}.js`)
 }
+
+/*
+function openModal(modal, controllers) {
+    include('content',  `modals/${modal}.html`, `app/controllers/${controllers}.js`)
+}
+*/
+
+function loadHTML(htmlContent){
+    console.log("loadHTML called")
+    fetch(`modals/${htmlContent}.html`)
+    .then(response=> response.text())
+    .then(text=> document.getElementById('content').innerHTML = text);
+  }
+  
 
 const dateFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
 function reviver(key, value) {

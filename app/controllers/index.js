@@ -5,7 +5,17 @@ class IndexController extends BaseController {
         super()
         this.model = new Model()
         
+        this.checkToken()
         this.displayArticles()
+    }
+
+    checkToken() {
+        console.log("checkToken")
+        if(sessionStorage.getItem("token") && sessionStorage.getItem("token") != undefined) {
+            const token = sessionStorage.getItem("token")
+            const checkToken = await this.model.checkToken(token)
+            console.log(checkToken)
+        }
     }
 
     /*

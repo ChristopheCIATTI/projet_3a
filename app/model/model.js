@@ -23,4 +23,8 @@ class Model {
     checkToken(token) {
         return this.userApi.checkToken(token)
     }
+
+    getUserInfo(email) {
+        return this.userApi.getUserInfo(email)
+    }
 }
