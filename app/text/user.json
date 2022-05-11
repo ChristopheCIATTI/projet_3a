@@ -1,3 +1,5 @@
 {
-    "firstname" : "prenom"
+    "loginFormTitle" : "Se connecter",
+    "forgotPwd" : "Mot de passe oublié?",
+    "createAccount" : "Creer un compte"
 }

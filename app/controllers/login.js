@@ -1,13 +1,32 @@
-class LoginController extends BaseFormController {
+// Manage user privige
+class LoginController extends BaseController {
     constructor() {
         super(false)
+        this.init()
         this.model = new Model()
         let tokenStatus
         tokenStatus = this.checkToken()  
         this.ifLogged(tokenStatus)
-        //this.displayUserInfo(tokenStatus)
     }
     
+    init() {
+        const content = document.getElementsByClassName("container")
+        const h1 = document.getElementById("formTitle")
+        const forgotPwd = document.getElementById("textforgotPwd")
+        //h1.textContent = "blabla"
+
+        fetch("./app/text/user.json")
+        .then(response => response.json())
+        .then(response => console.log(response))
+        .then(response => {
+            h1.textContent = response.loginFormTitle
+            //forgotPwd.textContent = response.forgotPwd ? response.forgotPwd : "Mot de passe oublié?" 
+        })
+        //.then(response => console.log(response.forgotPwd))
+        //.then(response => h1.textContent = response.loginFormTitle)
+        //.then(response => forgotPwd.textContent = response.forgotPwd)
+    }
+    /*
     ifLogged(tokenStatus) {
         tokenStatus.then(status => {
             if(status == false) {
@@ -16,49 +35,20 @@ class LoginController extends BaseFormController {
                 return false
             } 
             if(status == true) {
-                this.displayUserInfo()
-                //navigate("DashBoard")
+                //this.displayUserInfo()
+                //navigate("profileUser")
+                this.updateNavBar("navbarProfile", "Mon compte" , "useraccount")
                 return true
             }
         })
-    }
+    }*/
+    
     
     async checkToken() {
         if(sessionStorage.getItem("token") && sessionStorage.getItem("token") != undefined) {
             const token = sessionStorage.getItem("token")
             let checkToken = await this.model.checkToken(token)
             console.log(checkToken)
-            //return(checkToken.status)
-            /*
-            return new Promise((resolve, reject) => {
-                if(checkToken.status === 401) {
-                    this.logout()
-                    console("401 : logged again")
-                    //this.tokenStatus = false
-                    //console.log(this.tokenStatus)
-                    //return false
-                    resolve(false)
-                }
-
-                if(checkToken.status === 200) {
-                    console.log("200 : logged")
-                    //this.tokenStatus = true
-                    //console.log(this.tokenStatus)
-                    //return true
-                    resolve(true)
-                }
-
-                if(checkToken.status !== 200 && checkToken.status !== 401) {
-                    console.log("200 : logged")
-                    //this.tokenStatus = true
-                    //console.log(this.tokenStatus)
-                    //return true
-                    resolve(false)
-                }
-
-            })
-            .then(status => {return status})
-            */
             
             if(checkToken.status === 401) {
                 this.logout()
@@ -163,6 +153,7 @@ class LoginController extends BaseFormController {
             console.log(login.email)
             console.log(login.password)
             const response = await this.model.login(login)
+            console.log(response)
             if(response == 403) {
                 // Here call modal
                 //openModal("invalidCredentials")     
@@ -172,14 +163,16 @@ class LoginController extends BaseFormController {
                 });
                 */
                 //loadHTML("invalidCredentials")
-                console.log("response, status = 403")
+                console.log("response status = 403")
                 return
                 
             }
 
-            if(response != 403) {
+            if(response !== 200 || response == 304) {
                 console.log("login ok")
+                console.log("response, status = 200 304")
                 userInfo = await this.model.getUserInfo(login.email)
+                console.log(userInfo)
             }
 
             if(sessionStorage.getItem("token")) {
@@ -192,16 +185,16 @@ class LoginController extends BaseFormController {
                 sessionStorage.setItem("token", response.accessToken)
                 sessionStorage.setItem("user", response.firstname)
 
-                console.log(userInfo)
-
                 sessionStorage.setItem("firstname", userInfo.firstname)
                 sessionStorage.setItem("middleName", userInfo.middleName)
                 sessionStorage.setItem("lastName", userInfo.lastName)
+                sessionStorage.setItem("email", userInfo.email)
                 sessionStorage.setItem("mobile", userInfo.mobile)
                 sessionStorage.setItem("registeredAt", userInfo.registeredAt)
                 sessionStorage.setItem("lastLogin", userInfo.lastLogin)
 
-            
+                // And go to home
+                navigate('index')
             }
         }
     }
@@ -209,6 +202,7 @@ class LoginController extends BaseFormController {
     logout() {
         sessionStorage.removeItem("token")
         sessionStorage.removeItem("user")
+        this.restoreNavBar()
         navigate('login')
     }
 }

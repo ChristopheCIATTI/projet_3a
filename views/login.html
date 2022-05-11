@@ -1,62 +1,24 @@
 <!DOCTYPE html>
-<!--<div class="container">
-    <h3>Connexion</h3>
-    <div>
-        <div class="row">
-            <form class="col s12" id="formLogin">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="fieldLogin" type="text" class="validate" value="user1@exemple.com">
-                        <label for="fieldLogin" class="active">Adresse e-mail</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <input id="fieldPassword" type="password" class="validate">
-                        <label for="fieldPassword" class="active">Mot de passe</label>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="row">
-            <a class="waves-effect waves-light btn" onclick="loginController.autenticate()"><i class="material-icons right">check</i>Se connecter</a>
-        </div>
-    </div>
-</div>-->
 
 <div class="container">
-    <form>
-        <fieldset>
-            <legent>Connexion</legent>
+    <form id="loginForm" class="box">
+        <h1 id="formTitle" class="formTitle">Se connecter</h1>
+        <fieldset class="inputs">
+            <!--<legent>Connexion</legent>-->
+            <div>
+                <!--<label for="fieldLogin" class="active">Adresse e-mail</label>-->
+                <input id="fieldLogin" type="email" class="validate" placeholder="Email utilisateur" autofocus required>
+            
+            </div>
+            <div>
+                <!--<label for="fieldPassword" class="active">Mot de passe</label>-->
+                <input id="fieldPassword" type="password" placeholder="Mot de passe" required>
+            </div>
         </fieldset>
-            <div>
-                <label for="fieldLogin" class="active">Adresse e-mail</label>
-                <input id="fieldLogin" type="email" class="validate" placeholder="user1@exemple.com">
-            </div>
-            <div>
-                <label for="fieldPassword" class="active">Mot de passe</label>
-                <input id="fieldPassword" type="password" class="validate">
-            </div>
+        <fieldset id="actions">
+            <input type="submit" id="submit" value="Se connecter" class="button-41" role="button" onclick="loginController.login()">
+            <a id="textforgotPwd">Mot de passe oublié?</a><a id="" onclick="navigate('register')">Creer un compte</a>
+        </fieldset>
     </form>
 
-    <div class="row">
-        <a class="waves-effect waves-light btn" onclick="loginController.login()">Se connecter</a>
-        <a class="waves-effect waves-light btn" onclick="navigate('register')"">S'inscrire</a>
-    </div>
 </div>
-
-
-<!--<a href="#invalidCredentialsModal">Open Modal</a>-->
-
-<!--<a href="#invalidCredentialsModal" class="modal-trigger">Nouvelle liste</a>-->
-
-<!-- Small modal -->
-
-<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button>
-
-<div class="modal fade bd-example-modal-sm" id="invalidCredentialsModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      ...
-    </div>
-  </div>
-</div>
--->

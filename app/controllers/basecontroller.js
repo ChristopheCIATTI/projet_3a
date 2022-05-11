@@ -1,6 +1,7 @@
 class BaseController {
     constructor() {
         this.setBackButtonView('index')
+        //const itemUse = ["Se deconnecter"]
     }
     toast(elemId) {
         const toast = new bootstrap.Toast(document.getElementById(elemId))
@@ -12,9 +13,44 @@ class BaseController {
         }; history.pushState({}, '');
     }
 
+    jsonDateToString(JsonDate) {
+        const date = new Date(JsonDate)
+        return (date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()) 
+    }
+
+    ifLogged(tokenStatus) {
+
+        tokenStatus.then(status => {
+            if(status == false) {
+                console.log(status)
+                //this.logout()
+                return false
+            } 
+            if(status == true) {
+                this.navBarLogged()
+                return true
+            }
+        })
+    }
+
     removeAllChildNodes(parent) {
         while (parent.firstChild) {
             parent.removeChild(parent.firstChild);
         }
     }
+
+    navBarLogged() {
+        document.getElementById("navbarProfile").hidden = true;
+        document.getElementById("monCompte").hidden = false;
+        document.getElementById("logoutButton").hidden = false;
+        document.getElementById("articleMenu").hidden = false;
+    }
+
+    restoreNavBar() {
+        document.getElementById("navbarProfile").hidden = false;
+        document.getElementById("monCompte").hidden = true;
+        document.getElementById("logoutButton").hidden = true;
+        document.getElementById("articleMenu").hidden = true;
+    }
+    
 }

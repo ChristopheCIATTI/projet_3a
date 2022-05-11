@@ -87,3 +87,8 @@ function getParameterByName(name) {
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
 
+function loadJson(jsonFile) {
+    const jsonData = require('./../text/' + jsonFile + ".json"); 
+    console.log(jsonData);
+    return jsonData
+}
