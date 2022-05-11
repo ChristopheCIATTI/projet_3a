@@ -14,13 +14,13 @@ module.exports = (app, svc, jwt) => {
         catch(e) {console.log(e)}
     }) 
 
-    // 
+    // get user info by email
     app.get("/user/email/:email"/*, jwt.validateJWT*/, async (req, res) => {
         const email = req.params.email
         try {
             const user = await svc.dao.getUserByEmail(email)
-            console.log({ firstname: user[0].firstname, middleName: user[0].middleName, lastName: user[0].lastName, mobile: user[0].mobile, registeredAt: user[0].registeredAt, lastLogin: user[0].lastLogin})
-            return res.json({ firstname: user[0].firstname, middleName: user[0].middleName, lastName: user[0].lastName, mobile: user[0].mobile, registeredAt: user[0].registeredAt, lastLogin: user[0].lastLogin});
+            console.log({ firstname: user[0].firstname, middleName: user[0].middleName, lastName: user[0].lastName, email: user[0].email, mobile: user[0].mobile, registeredAt: user[0].registeredAt, lastLogin: user[0].lastLogin})
+            return res.json({firstname: user[0].firstname, middleName: user[0].middleName, lastName: user[0].lastName, email: user[0].email, mobile: user[0].mobile, registeredAt: user[0].registeredAt, lastLogin: user[0].lastLogin});
         }
         catch(e) {console.log(e)}
     })
@@ -84,8 +84,10 @@ module.exports = (app, svc, jwt) => {
             })
 
             if(passwordIsOk) {
-                res.json({ accessToken: accessToken, firstname: passwordCrypted[0].firstname });
                 await svc.dao.updateLastLogin(lastLogin, email)
+                //res.json({ accessToken: accessToken, firstname: passwordCrypted[0].firstname });
+                return res.status(200).json({ accessToken: accessToken, firstname: passwordCrypted[0].firstname });
+                
             }
             else {
                 //res.json({ message: "Invalid Credentials" })
