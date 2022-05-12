@@ -33,4 +33,20 @@ class ArticleAPI extends BaseAPIService {
             .catch(error => reject(error))
         })
     }
+
+    insertArticle(article) {
+        const sendToken = this.sendToken()
+        this.headers.set('Content-Type', 'application/x-www-form-urlencoded');
+        this.headers.set('Content-Type', 'application/json')
+        this.headers.set('Access-Control-Allow-Origin', '*');
+        this.headers.set('Authorization', sendToken)
+
+        return new Promise((resolve, reject) => {
+            fetch(`${this.url}`, {
+                method: 'POST',
+                headers: this.headers,
+                body: JSON.stringify(article)
+            })
+        })
+    }
 }

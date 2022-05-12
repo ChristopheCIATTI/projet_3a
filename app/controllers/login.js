@@ -75,60 +75,6 @@ class LoginController extends BaseController {
         }
     }
 
-    // Display field : firstname, middlename, lastname, mobile, email, registeredat, lastlogin
-    displayUserInfo() {
-        let container = document.querySelector('.container').innerHTML = ""
-            this.removeAllChildNodes(container);
-            
-
-            let h2 = document.createElement("h2")
-            let div1 = document.createElement("div")
-            let div2 = document.createElement("div")
-            //let a1 = document.createElement("div")
-
-            // var newContent = document.createTextNode('Hi there and greetings!');
-            let tableName = document.createTextNode("Info utilisateur") 
-            let userName = document.createTextNode(sessionStorage.getItem("user"))
-            let logout = document.createTextNode("se deconencter")
-
-            let firstname = document.createTextNode(sessionStorage.getItem("firstname"))
-            let middleName = document.createTextNode(sessionStorage.getItem("middleName"))
-            let lastName = document.createTextNode(sessionStorage.getItem("lastName"))
-            let mobile = document.createTextNode(sessionStorage.getItem("mobile"))
-            let registeredAt = document.createTextNode(sessionStorage.getItem("registeredAt"))
-            let lastLogin = document.createTextNode(sessionStorage.getItem("lastLogin"))
-
-            const storage = {...sessionStorage}
-
-            for (const [key, value] of Object.entries(storage)) {
-                console.log(`${key}: ${value}`);
-                let textNodeKey = ""
-                if(key == "token") {continue}
-                if(key == "firstname") {textNodeKey = "Prenom"}
-                if(key == "middleName") {textNodeKey = "Deuxieme prenom"}
-                let tr = document.createElement("tr")
-                let thKey = document.createElement("th")
-                let thValue = document.createElement("th")
-
-                let keyNode = document.createTextNode(textNodeKey)
-                thKey.appendChild(keyNode)
-                document.querySelector('.container').appendChild(tr);
-                document.querySelector('.container').appendChild(thKey);
-
-            }
-
-
-            h2.appendChild(tableName)
-            div1.appendChild(userName)
-            div2.setAttribute("class", "waves-effect waves-light btn")
-            div2.setAttribute("onclick", "loginController.logout()")
-            div2.appendChild(logout)
-            document.querySelector('.container').appendChild(h2);
-            document.querySelector('.container').appendChild(div1);
-            document.querySelector('.container').appendChild(div2);
-    }
-    
-
     async login() {
         let userInfo
         if(sessionStorage.getItem("token") && sessionStorage.getItem("user")) {
@@ -155,22 +101,19 @@ class LoginController extends BaseController {
             const response = await this.model.login(login)
             console.log(response)
             if(response == 403) {
-                // Here call modal
-                //openModal("invalidCredentials")     
-                /*
-                $(document).ready(function(){
-                    $("#invalidCredentialsModal").modal('show');
-                });
-                */
-                //loadHTML("invalidCredentials")
+                
+                popUp.popUpDisplay("Credentials invalides");
+
                 console.log("response status = 403")
                 return
                 
             }
 
-            if(response !== 200 || response == 304) {
+            if(response == 200 || response == 304) {
                 console.log("login ok")
                 console.log("response, status = 200 304")
+
+                popUp.popUpDisplay("Vous êtes Connecté");
                 userInfo = await this.model.getUserInfo(login.email)
                 console.log(userInfo)
             }

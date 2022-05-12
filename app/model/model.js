@@ -27,4 +27,8 @@ class Model {
     getUserInfo(email) {
         return this.userApi.getUserInfo(email)
     }
+
+    insertArticle(article) {
+        return this.articleApi.insertArticle(article)
+    }
 }
