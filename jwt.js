@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const jwtKey = 'backnode'
 const jwtExpirySeconds = 3600
 
-module.exports = (userService) => {
+module.exports = (userService, articleService) => {
     return {
         validateJWT(req, res, next) {
             const httpStatus200 = 200

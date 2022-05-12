@@ -32,10 +32,10 @@ const userService = new UserService(db)
 const ArticleService = require("./services/article")
 const articleService = new ArticleService(db)
 
-const jwt = require('./jwt')(userService)
+const jwt = require('./jwt')(userService, articleService)
 
 //require('./api/useraccount')(app, userAccountService, jwt)
-require("./api/article")(app, articleService /*, jwt*/)
+require("./api/article")(app, articleService , jwt)
 require("./api/user")(app, userService, jwt)
 require('./datamodel/seeder')( 
     articleService,

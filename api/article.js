@@ -1,6 +1,6 @@
 const { json } = require("body-parser")
 
-module.exports = (app, svc, /*jwt*/) => {
+module.exports = (app, svc, jwt) => {
 
     // Get all article
     app.get("/article", /*jwt.validateJWT,*/ async (req, res) => {
@@ -98,11 +98,13 @@ module.exports = (app, svc, /*jwt*/) => {
         catch(e) {console.log(e)}
     })
 
-    app.post("/article", /*jwt.validateJWT,*/ async (req, res) => {
+    // Add article
+    app.post("/article", jwt.validateJWT, async (req, res) => {
 
         const article = req.body
-
         console.log("post new article")
+        console.log(article)
+        
     })
 
     app.put("/article/:id", /*jwt.validateJWT,*/ async (req, res) => {
