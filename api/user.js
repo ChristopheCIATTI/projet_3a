@@ -35,11 +35,11 @@ module.exports = (app, svc, jwt) => {
     })
 
     // Just check an user token if is always valid
-    app.get("/user/checktoken", jwt.validateJWT, async (req, res) => {
+    app.get("/user/checktoken", jwt.checkJWT, async (req, res) => {
         console.log("/user/checktoken")
     })
 
-    // Create new User
+    // Create new Da
     app.post("/user/register/", async (req, res) => {
         const user = req.body
 

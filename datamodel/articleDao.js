@@ -105,21 +105,24 @@ module.exports = class ArticleDAO extends BaseDAO {
             })
         })
     }
-
+    
     insertArticle(article) {
         return new Promise((resolve, reject) => {
             this.db.query("INSERT INTO article \
-                (author_id, parent_id, title, meta_title, slug, summary, published, created_at, updated_at, published_at, content) \
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                [article.author_id, article.parent_id, article.title, 
-                article.meta_title, article.slug, article.summary, 
-                article.published, article.created_at, article.updated_at, 
-                article.published_at, article.content]
+                (author_id, title, meta_title, slug, summary, published, created_at, content) \
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                [article.author_id, 
+                article.title, 
+                article.meta_title,
+                article.slug, 
+                article.summary, 
+                article.published, 
+                article.created_at,
+                article.content]
             )
         })
     }
-
-    //
+    
     updateArtcile() {}
 
     deleteAllArticle() {

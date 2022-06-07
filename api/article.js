@@ -98,13 +98,87 @@ module.exports = (app, svc, jwt) => {
         catch(e) {console.log(e)}
     })
 
-    // Add article
-    app.post("/article", jwt.validateJWT, async (req, res) => {
+
+    app.get("/test/test", jwt.validateJWT, async (req, res) => {
 
         const article = req.body
-        console.log("post new article")
-        console.log(article)
-        
+
+        await svc.dao.insertArticle()
+
+        console.log("hgdgdfhhgfgh")
+
+        return res.json("c'est ok")
+        /*
+        const article = req.body
+        console.log(req)
+        //console.log("post new article")
+        //console.log(article)
+        console.log("post ok")
+        */
+    })
+
+
+    app.get("/test", async (req, res) => {
+        console.log(svc)
+
+        return
+    })
+
+    // Add article
+    app.post("/article/", jwt.validateJWT, async (req, res) => {
+
+        const article = req.body
+
+        if(!article) {
+            return res.status(403).send("Invalid inputfiel; field cannot be empty");
+        }
+
+        for(let i in article) {
+            console.log(article[i])
+            if(article[i] == undefined || article[i] == null || article[i] == "" || article[i] == " ") {
+                return res.status(403).send("Invalid inputfiel; field cannot be empty");
+            }
+        }
+
+        try {
+            const id  = await svc.userDao.getIdByEmail(article.email)
+            const slugify = articleTitle =>
+                articleTitle
+                    .toLowerCase()
+                    .trim()
+                    .replace(/[^\w\s-]/g, '')
+                    .replace(/[\s_-]+/g, '-')
+                    .replace(/^-+|-+$/g, '');
+
+            const slug = slugify(article.title)
+            const created_at = new Date()
+            
+            /*
+            console.log("author_id : " + id)
+            console.log("title : " + article.title)
+            console.log("meta_title : " + article.meta_title)
+            console.log("slug : " + slug)
+            console.log("summary : " + article.summary)
+            console.log("content : " + article.content)
+            console.log("publish : " + article.published)
+            console.log("created_at : " + created_at)
+            */
+
+            const postArticle = {
+                "author_id" : id,
+                "title" : article.title,
+                "meta_title" : article.meta_title,
+                "slug" : slug,
+                "summary" : article.summary,
+                "published" : article.published,
+                "created_at" : created_at,
+                "content" : article.content
+            }
+            
+            await svc.dao.insertArticle(postArticle)
+            return res.status(200).end()
+        }
+        catch(e) {console.log(e)}
     })
 
     app.put("/article/:id", /*jwt.validateJWT,*/ async (req, res) => {
