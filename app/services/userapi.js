@@ -29,7 +29,7 @@ class UserAPI extends BaseAPIService {
                 body: JSON.stringify(user)
             })
             .then(function(response) {
-                if (response.status == 200) {
+                if (response.ok/*response.status == 200*/) {
                     resolve(response.json())
                 }  
                 if (response.status == 403) {

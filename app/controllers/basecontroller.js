@@ -52,5 +52,16 @@ class BaseController {
         document.getElementById("logoutButton").hidden = true;
         document.getElementById("articleMenu").hidden = true;
     }
-    
+
+    /*
+    wordCount(value) {
+        var wom = value.match(/\S+/g);
+        return {
+            charactersNoSpace: value.replace(/\s+/g, '').length,
+            characters:  value.length,
+            words: wom ? wom.length : 0,
+            lines: value.split(/\r*\n/).length
+        }
+    }
+    */
 }

@@ -99,6 +99,7 @@ class LoginController extends BaseController {
             console.log(login.email)
             console.log(login.password)
             const response = await this.model.login(login)
+            console.log("response")
             console.log(response)
             if(response == 403) {
                 
@@ -109,9 +110,7 @@ class LoginController extends BaseController {
                 
             }
 
-            if(response == 200 || response == 304) {
-                console.log("login ok")
-                console.log("response, status = 200 304")
+            if(response !== 403 /* == 200 || response == 304 || response == 204*/) {
 
                 popUp.popUpDisplay("Vous êtes Connecté");
                 userInfo = await this.model.getUserInfo(login.email)
@@ -121,10 +120,13 @@ class LoginController extends BaseController {
             if(sessionStorage.getItem("token")) {
                 // if the local storage already setted, go to index page
                 navigate('index')
-                return
+                
             }
             else {
                 // set local storage
+                console.log("else userinfo")
+                console.log(userInfo)
+
                 sessionStorage.setItem("token", response.accessToken)
                 sessionStorage.setItem("user", response.firstname)
 
