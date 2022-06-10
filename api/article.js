@@ -33,15 +33,35 @@ module.exports = (app, svc, jwt) => {
         catch(e) {console.log(e)}
     })
 
-    // Get article by his author
-    app.get("/article/author/:author", /*jwt.validateJWT,*/ async (req, res) => {
+    // Get all articles by his author
+    app.get("/article/author/:author", jwt.validateJWT, async (req, res) => {
         const author = req.params.author
+        console.log(author)
+        
         try {
-            const article = await svc.dao.getArticleByAuthor(author)
+            let id = await svc.userDao.getIdByEmail(author)
+            id = id[0].id
+            console.log(id)
+
+            const article = await svc.dao.getArticleByAuthor(id)
+            console.log(article)
             return res.json(article)
+            //return res.status(200).end()
         }
         catch(e) {console.log(e)}
+    
     })
+
+    /*
+    app.get("/article/authorId/:authorId", async (req, res) => {
+        const authorId = req.params.authorId
+        console.log(authorId)
+
+        try {
+            let author_id = await 
+        }
+    })
+    */
 
     // WTF ???!
     app.get("/article/author/:author/id/:id", /*jwt.validateJWT,*/ async (req, res) => {
@@ -81,8 +101,16 @@ module.exports = (app, svc, jwt) => {
         const slug = req.params.slug
 
         try {
+//let id = await svc.userDao.getIdByEmail(author)
+
             const article = await svc.dao.getArticleBySlug(slug)
-            return res.json(article)
+            console.log(article[0].author_id)
+
+            const author_id = await svc.userDao.getAuthorNameByAuthorId(article[0].author_id)
+           
+            console.log([article, author_id])
+
+            return res.json([article, author_id])
         }
         catch(e) {console.log(e)}
     })
@@ -98,30 +126,26 @@ module.exports = (app, svc, jwt) => {
         catch(e) {console.log(e)}
     })
 
+    app.get("/article/published/:published", async (req, res) => {
+        const _published = req.params.published
+        const published = (_published == 'true' ? 1 : 0);
+        console.log(published)
 
-    app.get("/test/test", jwt.validateJWT, async (req, res) => {
+        //if (!(typeof published === 'boolean')) {throw "Invalid value passed to request";}
 
-        const article = req.body
+        try {
+            const articles = await svc.dao.getAllArticle()
+            for(let i in articles) {
+                if(articles[i].published !== published) {
+                    articles.splice(i, 1)
+                }
+            }
 
-        await svc.dao.insertArticle()
-
-        console.log("hgdgdfhhgfgh")
-
-        return res.json("c'est ok")
-        /*
-        const article = req.body
-        console.log(req)
-        //console.log("post new article")
-        //console.log(article)
-        console.log("post ok")
-        */
-    })
-
-
-    app.get("/test", async (req, res) => {
-        console.log(svc)
-
-        return
+            console.log("after sort")
+            console.log(articles)
+            return res.json(articles)
+        }
+        catch(e) {console.log(e)}
     })
 
     // Add article
@@ -165,7 +189,7 @@ module.exports = (app, svc, jwt) => {
             */
 
             const postArticle = {
-                "author_id" : id,
+                "author_id" : id[0].id,
                 "title" : article.title,
                 "meta_title" : article.meta_title,
                 "slug" : slug,

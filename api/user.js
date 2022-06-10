@@ -34,6 +34,16 @@ module.exports = (app, svc, jwt) => {
         catch(e) {console.log(e)}
     })
 
+    app.get("/user/authorId/:authorId/", async (req, res) => {
+        const authorId = req.params.authorId
+        try {
+            const authorName = await svc.dao.getAuthorNameByAuthorId(authorId)
+            console.log(authorName)
+            return res.json(authorName)
+        }
+        catch(e) {console.log(e)}
+    })
+
     // Just check an user token if is always valid
     app.get("/user/checktoken", jwt.checkJWT, async (req, res) => {
         console.log("/user/checktoken")

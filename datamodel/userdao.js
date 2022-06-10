@@ -73,6 +73,17 @@ module.exports = class UserDAO extends BaseDAO {
             })    
         })
     }
+
+    getAuthorNameByAuthorId(authorId) {
+        return new Promise((resolve, reject) => {
+            this.db.query("SELECT firstname, middleName, lastName FROM user WHERE id = ?", [authorId], (err, rows, fields) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(rows);
+            })
+        })
+    }
   
     updateLastLogin(lastLogin, email) {
         return new Promise((resolve, reject) => {
