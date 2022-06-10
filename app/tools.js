@@ -60,6 +60,7 @@ function navigate(view) {
     include('content',  `views/${view}.html`, `app/controllers/${view}.js`)
 }
 
+
 /*
 function openModal(modal, controllers) {
     include('content',  `modals/${modal}.html`, `app/controllers/${controllers}.js`)
@@ -91,4 +92,20 @@ function loadJson(jsonFile) {
     const jsonData = require('./../text/' + jsonFile + ".json"); 
     console.log(jsonData);
     return jsonData
+}
+
+function setLocalStorageAndNavigate(key, value, vue) {
+    localStorage.setItem(key, value)
+    navigate(vue)
+}
+
+function getLocalStorage(key) {
+    localStorage.getItem(key)
+}
+
+async function displayBreedInPage(breedId) {
+    //setValue(breedId)
+    this.breedId = breedId
+    //console.log("value : " + getValue())
+    navigate("article")
 }

@@ -77,4 +77,21 @@ class UserAPI extends BaseAPIService {
             .catch(error => reject(error))
         })
     }
+
+    getAuthorNameById(authorId) {
+        this.headers.set('Content-Type', 'application/x-www-form-urlencoded');
+        this.headers.set('Content-Type', 'application/json')
+        this.headers.set('Access-Control-Allow-Origin', '*');
+        this.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate')
+
+        return new Promise((resolve, reject) => {
+            console.log(`${this.url}/authorId/${authorId}`)
+            fetch(`${this.url}/authorId/${authorId}`, {
+                method: "GET",
+                headers: this.headers
+            })
+            .then(response => {resolve(response.json())})
+            .catch(error => reject(error))
+        })
+    }
 }

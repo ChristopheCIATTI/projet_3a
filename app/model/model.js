@@ -4,12 +4,28 @@ class Model {
         this.userApi = new UserAPI()
     }
 
+    getArticleBySlug(slug) {
+        return this.articleApi.getArticleBySlug(slug)
+    }
+
     getAllArticles() {
         return this.articleApi.getAllArticles()
     }
 
+    getAllArticlesPublished() {
+        return this.articleApi.getAllArticlesPublished(true)
+    }
+
+    getAllUserArticle() {
+        return this.articleApi.getAllUserArticle()
+    }
+
     getNumberArticles() {
         return this.articleApi.getNumberArticles()
+    }
+
+    getAllMyArticles() {
+        return this.articleApi.getAllMyArticles()
     }
 
     insertUser(formValue) {
@@ -26,6 +42,10 @@ class Model {
 
     getUserInfo(email) {
         return this.userApi.getUserInfo(email)
+    }
+
+    getAuthorNameById(auhorId) {
+        return this.userApi.getAuthorNameById(auhorId)
     }
 
     insertArticle(article) {

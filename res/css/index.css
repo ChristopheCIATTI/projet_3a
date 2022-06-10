@@ -38,7 +38,6 @@ td:hover {
     color: #F1FAEE !important;;
 }
 
-
 /* Header/Blog Title */
 .header {
 padding: 30px;
@@ -73,6 +72,13 @@ padding: 20px;
     background-color: white;
     padding: 20px;
     margin-top: 20px;
+    text-decoration: none;
+}
+
+.vbar {
+    border-left: 6px solid #023e8a;
+    position: absolute;
+    height: 100%;
 }
 
 /* Clear floats after the columns */
@@ -129,10 +135,6 @@ border-radius: 2px;
 margin: 1rem;
 position: relative;
 /*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);*/
-}
-
-textarea {
-    
 }
 
 .inputs input {
@@ -394,4 +396,22 @@ select > option.hidden_option{
 }
 #PopUpStyle p {
     clear: both;
-} 
+}
+
+.article {
+    text-align: center;
+}
+
+#articleContent {
+    text-align: left;
+    text-shadow: 1px 1px 2px pink;
+}
+
+#article-author * {
+    display: inline-block;
+}
+
+#articleContent {
+    margin: 0.3em;
+    padding: 0.4em;
+}

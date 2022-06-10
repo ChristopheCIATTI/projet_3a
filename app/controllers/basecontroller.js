@@ -53,6 +53,11 @@ class BaseController {
         document.getElementById("articleMenu").hidden = true;
     }
 
+    parentfunction() {
+        console.log("parentfunction")
+    }
+
+
     /*
     wordCount(value) {
         var wom = value.match(/\S+/g);
@@ -65,3 +70,5 @@ class BaseController {
     }
     */
 }
+
+window.baseController = new BaseController()
