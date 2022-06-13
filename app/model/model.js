@@ -51,4 +51,8 @@ class Model {
     insertArticle(article) {
         return this.articleApi.insertArticle(article)
     }
+
+    updateArticle(value) {
+        return this.articleApi.updateArticle(value)
+    }
 }

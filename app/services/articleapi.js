@@ -113,14 +113,29 @@ class ArticleAPI extends BaseAPIService {
         this.headers.set('Access-Control-Allow-Origin', '*');
         this.headers.set('Authorization', sendToken)
 
-        console.log("url post : " + `${this.url}`)
-        console.log(article)
-
         return new Promise((resolve, reject) => {
             fetch(`${this.url}`, {
                 method: 'POST',
                 headers: this.headers,
                 body: JSON.stringify(article)
+            })
+        })
+    }
+
+    updateArticle(value) {
+        const sendToken = this.sendToken()
+        this.headers.set('Content-Type', 'application/x-www-form-urlencoded');
+        this.headers.set('Content-Type', 'application/json')
+        this.headers.set('Access-Control-Allow-Origin', '*');
+        this.headers.set('Authorization', sendToken)
+
+        console.log(`${this.url}/update/`)
+
+        return new Promise((resolve, reject) => {
+            fetch(`${this.url}/update/`, {
+                method: 'PUT',
+                headers: this.headers,
+                body: JSON.stringify(value)
             })
         })
     }

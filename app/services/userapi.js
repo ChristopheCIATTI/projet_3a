@@ -22,6 +22,9 @@ class UserAPI extends BaseAPIService {
         this.headers.set('Content-Type', 'application/json')
         this.headers.set('Access-Control-Allow-Origin', '*');
         
+        console.log("console.log()")
+        console.log(JSON.stringify(user))
+
         return new Promise((resolve, reject) => {
             fetch(`${this.url}/login`, {
                 method: "POST",

@@ -13,15 +13,15 @@ class LoginController extends BaseController {
         const content = document.getElementsByClassName("container")
         const h1 = document.getElementById("formTitle")
         const forgotPwd = document.getElementById("textforgotPwd")
-        //h1.textContent = "blabla"
-
+        h1.textContent = "Se connecter"
+        /*
         fetch("./app/text/user.json")
         .then(response => response.json())
         .then(response => console.log(response))
         .then(response => {
-            h1.textContent = response.loginFormTitle
+            h1.textContent = .responseloginFormTitle
             //forgotPwd.textContent = response.forgotPwd ? response.forgotPwd : "Mot de passe oublié?" 
-        })
+        })*/
         //.then(response => console.log(response.forgotPwd))
         //.then(response => h1.textContent = response.loginFormTitle)
         //.then(response => forgotPwd.textContent = response.forgotPwd)

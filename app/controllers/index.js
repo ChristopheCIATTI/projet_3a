@@ -3,6 +3,11 @@ class IndexController extends BaseController {
         super()
         this.articleSlug = null
         this.model = new Model()
+
+        let tokenStatus
+        tokenStatus = this.checkToken()  
+        this.ifLogged(tokenStatus)
+
         //const tokenStatus = this.checkToken()
         //this.ifLogged(tokenStatus)
         //this.checkToken()
@@ -20,6 +25,37 @@ class IndexController extends BaseController {
         }
     }
     */
+
+    async checkToken() {
+        if(sessionStorage.getItem("token") && sessionStorage.getItem("token") != undefined) {
+            const token = sessionStorage.getItem("token")
+            let checkToken = await this.model.checkToken(token)
+            console.log(checkToken)
+            
+            if(checkToken.status === 401) {
+                this.logout()
+                console("401 : logged again")
+                //this.tokenStatus = false
+                //console.log(this.tokenStatus)
+                //return false
+                return Promise.resolve(false);
+            }
+
+            if(checkToken.status === 200) {
+                console.log("200 : logged")
+                //this.tokenStatus = true
+                //console.log(this.tokenStatus)
+                //return true
+                return Promise.resolve(true);
+            }
+            
+        }
+
+        if(!sessionStorage.getItem("token") || sessionStorage.getItem("token") == undefined) {
+            //this.tokenStatus = false
+            return false
+        }
+    }
 
     async getAllArticlesPublished() {
         const articles = await this.model.getAllArticlesPublished(true)
