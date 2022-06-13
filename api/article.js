@@ -205,11 +205,65 @@ module.exports = (app, svc, jwt) => {
         catch(e) {console.log(e)}
     })
 
-    app.put("/article/:id", /*jwt.validateJWT,*/ async (req, res) => {
+    /*
+    app.put("/article/:id", /*jwt.validateJWT, async (req, res) => {
         const id = req.params.id
         const article = req.body
 
         console.log("update article")
+    })
+    */
+
+    app.put("/article/update/", /*jwt.validateJWT,*/ async (req, res) => {
+        
+        console.log("put test");
+        const update = req.body
+
+        //updated_at
+        //published_at
+
+        try {
+            const update = req.body
+            console.log("body")
+            console.log(update)
+            console.log(update.field)
+            console.log(update.slug)
+            console.log("try");
+            let field
+            switch (update.field) {
+                case "articleTitle": 
+                    field = "title"
+                    break;
+            
+                case "articleSumary":
+                    field = "summary"
+                    break;
+                
+                case "articlePublish":
+                    field = "published"
+                    break;
+                
+                case "articleContent":
+                    field = "content"
+                    break;
+            }
+         
+            console.log("251 field : " + field)
+            const updateField = svc.dao.updateField(update.value, field, update.slug)
+            console.log(updateField)
+            
+        }
+        catch(e) {console.log(e)}
+
+        //http://localhost:3333/article/test articleapi.js:135:17
+        
+        //const id = req.params.id
+        //const article = req.body
+
+        //console.log("body")
+        //console.log(article)
+
+        
     })
 
     app.delete("/article/", /*jwt.validateJWT,*/ async (req, res) => {
