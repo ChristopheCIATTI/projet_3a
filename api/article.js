@@ -188,33 +188,37 @@ module.exports = (app, svc, jwt) => {
             console.log("created_at : " + created_at)
             */
 
+            let publish
+            if(article.published === "publish") {
+                publish = 1
+            }
+            else {
+                publish = 0
+            }
+
             const postArticle = {
                 "author_id" : id[0].id,
                 "title" : article.title,
                 "meta_title" : article.meta_title,
                 "slug" : slug,
                 "summary" : article.summary,
-                "published" : article.published,
+                "published" : publish,
                 "created_at" : created_at,
                 "content" : article.content
             }
             
-            await svc.dao.insertArticle(postArticle)
+            const r1 = await svc.dao.insertArticle(postArticle)
+
+            if(publish) {
+                let publish_at = new Date()
+                await svc.dao.updatePublished_atBySlug(publish_at, slug)
+            }
             return res.status(200).end()
         }
         catch(e) {console.log(e)}
     })
 
-    /*
-    app.put("/article/:id", /*jwt.validateJWT, async (req, res) => {
-        const id = req.params.id
-        const article = req.body
-
-        console.log("update article")
-    })
-    */
-
-    app.put("/article/update/", /*jwt.validateJWT,*/ async (req, res) => {
+    app.put("/article/update/", jwt.validateJWT, async (req, res) => {
         
         console.log("put test");
         const update = req.body
@@ -247,10 +251,10 @@ module.exports = (app, svc, jwt) => {
                     field = "content"
                     break;
             }
-         
-            console.log("251 field : " + field)
+            
             const updateField = svc.dao.updateField(update.value, field, update.slug)
-            console.log(updateField)
+            const dateUpdate = new Date()
+            const updateDate = svc.dao.updateFieldUpdate_atBySlug(dateUpdate, update.slug)
             
         }
         catch(e) {console.log(e)}
