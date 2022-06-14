@@ -144,12 +144,13 @@ class LoginController extends BaseController {
         }
     }
 
+    /*
     logout() {
         sessionStorage.removeItem("token")
         sessionStorage.removeItem("user")
         this.restoreNavBar()
         navigate('login')
-    }
+    }*/
 }
 
 window.loginController = new LoginController()

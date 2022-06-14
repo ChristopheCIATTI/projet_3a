@@ -85,55 +85,6 @@ class ArticleController extends BaseFormController {
         $("#articleContent").innerHTML = article.content
     }
 
-    /*
-    editArticle() {
-        const author = JSON.parse(localStorage.getItem("author"))
-        const firstname = sessionStorage.getItem("firstname")
-
-        if(firstname === author.firstname) {
-            console.log("author ok")
-            $("#editArticle").innerHTML += "<button>Edit</button>"
-            $("#removeArticle").innerHTML += "<button>Supprimer</button>"
-        }
-        else {return}
-
-        const edit = document.getElementById("editArticle")
-        edit.addEventListener("click", function() {
-            const articleTitle = document.getElementById("articleTitle")
-
-            const inputTitle = `<input id="articleTitle" placeholder="Titre de l'article" type="text" class="validate" required></input>`
-
-            //articleTitle.replaceWith(inputTitle)
-            articleTitle.innerHTML = inputTitle
-        }, false)
-    }*/
-
-     /*
-    edit(value, field) {
-        console.log(value)
-        console.log(field)
-
-        /*
-        aFunctionWithCallback(this.id, function(data) {
-  console.log(this);
-}.bind(this));
-        
-
-
-        update(async function update(this, value, field) {
-            console.log(value)
-            console.log(field)
-            //const valueToUpdate = document.getElementById("articleTitle").innerText
-            const fieldUpdated = {
-                "value" : value,
-                "field" : field
-            }
-            const edit = await this.model.updateArticle(fieldUpdated)
-        }.bind(this))
-
-        update();
-    }*/
-
     makeFieldEditable(elem, _input, objtext, id) {
         this.lastInputEdited = elem.id
         const input = _input
@@ -168,18 +119,14 @@ class ArticleController extends BaseFormController {
         elem.addEventListener("click", function() {
             //elem.innerHTML = objtext.string1 + elem.innerText + "<br />" + objtext.string2
             elem.insertAdjacentHTML('beforeend', input)
-            document.getElementById("validateEdit").removeAttribute("hidden");
+            //document.getElementById("validateEdit").removeAttribute("hidden");
         }, {once : true})
 
-        elem.addEventListener("keydown", function(event) {
+        elem.addEventListener("keydown", async function(event) {
             let  radios = document.getElementsByName('articleStatus');
             console.log(radios)
+            let fieldValue
             if(event.key === "Escape" || event.key === "Enter") {
-                /*if(!$("#"+id+"").value || $("#"+id+"").value === "") {
-                    //call popup
-                    console.log("input vide")
-                    return
-                }*/
                 for(let i=0, length=radios.length; i<length; i++) {
                     if(radios[i].checked) {
                         console.log(radios[i] + " : is checked")
@@ -187,12 +134,25 @@ class ArticleController extends BaseFormController {
                         const updateValue =  radios[i].value
                         console.log(updateValue)
                         elem.innerHTML = "statut publication: " + radios[i].value
+                        fieldValue = updateValue
                     }
                 }
-
-                //elem.innerHTML = $("#"+id+"").value
+                console.log("console.log(fieldValue)")
+                console.log(fieldValue)
+                if(fieldValue == "publié") {
+                    fieldValue = 1
+                }
+                else {
+                    fieldValue = 0
+                }
+                const fieldUpdated = {
+                    "value" : fieldValue,
+                    "field" : elem.id,
+                    "slug" : this.articleSlug
+                }
+                const edit = await this.model.updateArticle(fieldUpdated)
             }
-        }, false)
+        }.bind(this), false)
     }
 
     editInput() {

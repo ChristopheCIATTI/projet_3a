@@ -33,6 +33,13 @@ class BaseController {
         })
     }
 
+    logout() {
+        sessionStorage.removeItem("token")
+        sessionStorage.removeItem("user")
+        this.restoreNavBar()
+        navigate('login')
+    }
+
     removeAllChildNodes(parent) {
         while (parent.firstChild) {
             parent.removeChild(parent.firstChild);

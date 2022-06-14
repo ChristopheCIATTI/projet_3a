@@ -35,7 +35,10 @@ class ManageArticlesController extends BaseController {
             content += "</div>"
             
             content += "<div>"
-            content += "menu modifier supprimer"
+            //content += "menu modifier supprimer"
+            content += `<span data-index-modifier="modifier-${i}" class='hand_text_style'>modifier</span>`
+            content += " "
+            content += `<span data-index-delete="delete-${i}" class='hand_text_style'>supprimer</span>`
             content += "</div>"
         }
         $("#articleContainer").innerHTML += content
@@ -44,19 +47,23 @@ class ManageArticlesController extends BaseController {
             document.getElementById(`card-${i}`)
             .addEventListener("click", 
                 function() {
-
                     this.articleSlug = articles[i].slug;
-                   
                     if(localStorage.getItem("articleSlug")) {localStorage.removeItem("articleSlug")}
-
                     localStorage.setItem("articleSlug", this.articleSlug)
-
-                    //
-                    //console.log(window.articleController)
-
                     return navigate("article");
                 }, 
                 false)
+
+            //document.getElementById(`modifier-${i}`)
+            document.querySelector(`[data-index-modifier="modifier-${i}"]`)
+            .addEventListener("click", 
+            function() {
+                this.articleSlug = articles[i].slug;
+                if(localStorage.getItem("articleSlug")) {localStorage.removeItem("articleSlug")}
+                localStorage.setItem("articleSlug", this.articleSlug)
+                return navigate("article");
+            }, 
+            false)
         }
 
     }

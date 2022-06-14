@@ -130,6 +130,8 @@ class ArticleAPI extends BaseAPIService {
         this.headers.set('Authorization', sendToken)
 
         console.log(`${this.url}/update/`)
+        console.log("article")
+        console.log(value)
 
         return new Promise((resolve, reject) => {
             fetch(`${this.url}/update/`, {
