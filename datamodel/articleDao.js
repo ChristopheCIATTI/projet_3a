@@ -1,6 +1,7 @@
 const { rejects } = require('assert')
 const { reject } = require('bcrypt/promises')
 const { resolve } = require('path')
+const { off } = require('process')
 const BaseDAO = require('./basedao')
 
 module.exports = class ArticleDAO extends BaseDAO {
@@ -109,33 +110,36 @@ module.exports = class ArticleDAO extends BaseDAO {
         })
     }
 
-    /*
-    getAuthorNameByAuthorId(authorId) {
+    get10LastArticle() {
         return new Promise((resolve, reject) => {
-            this.db.query("SELECT firstname, middleName, ")
+            //SELECT * FROM `article` ORDER BY `article`.`updated_at` ASC 
+            this.db.query("SELECT * from article WHERE published = 1 ORDER BY updated_at  DESC LIMIT 10", (err, rows, fields) => { 
+                if(err) {
+                    return reject(err);
+                }
+                resolve(rows);
+            })
+        })
+    }
 
-            //firstname
-            //middleName
-            //lastName
-        })
-    }
-    */
-    // Not working ...
-    /*
-    getAllArticlesPublished(published) {
-        console.log("arg : " + published)
+    // issue: https://github.com/mscdex/node-mariasql/issues/166
+    get5moreArticles(offset) {
         return new Promise((resolve, reject) => {
-            this.db.query("SELECT * FROM `article` WHERE article.published = ?;",
-            [1])
+            this.db.query('SELECT * from article WHERE published = 1 ORDER BY updated_at  DESC LIMIT ?,5 ',
+            [offset],
+            (err, rows, fields) => {
+                if(err) {
+                    return reject(err);
+                }
+                resolve(rows);
+            })
         })
     }
-    */
-    //SELECT * FROM `article` WHERE article.published = true 
     
     insertArticle(article) {
         return new Promise((resolve, reject) => {
             this.db.query("INSERT INTO article \
-                (author_id, title, meta_title, slug, summary, published, created_at, content) \
+                (author_id, title, meta_title, slug, summary, published, created_at, updated_at, content) \
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                 [article.author_id, 
                 article.title, 
@@ -144,6 +148,7 @@ module.exports = class ArticleDAO extends BaseDAO {
                 article.summary, 
                 article.published, 
                 article.created_at,
+                article.updated_at,
                 article.content],
                 (err, rows, fields) => {
                     if (err) {
@@ -158,6 +163,15 @@ module.exports = class ArticleDAO extends BaseDAO {
     updateArtcile() {}
 
     updateField(value, field, slug) {
+
+        if(field === "title") {
+            console.log("title detect")
+            console.log("at updateField(value, field, slug + log data given)")
+            console.log(value)
+            console.log(field)
+            console.log(slug)
+        } else {console.log("other field"); console.log(field)}
+
         return new Promise((resolve, reject) => {
             this.db.query("UPDATE article SET article.??=? WHERE article.slug = ?",
             [field, value, slug],

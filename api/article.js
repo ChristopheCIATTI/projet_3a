@@ -11,6 +11,23 @@ module.exports = (app, svc, jwt) => {
         catch(e) {console.log(e)}
     })
 
+    app.get("/article/last10publish/", async (req, res) => {
+        try {
+            const article = await svc.dao.get10LastArticle()
+            return res.json(article)
+        }
+        catch(e) {console.log(e)}
+    })
+
+    app.get("/article/offset/:offset/", async (req, res) => {
+        const offset = req.params.offset
+        try {
+            const article = await svc.dao.get5moreArticles(offset)
+            return res.json(article)
+        }
+        catch(e) {console.log(e)}
+    })
+
     // Get number of article
     app.get("/article/count", /*jwt.validateJWT,*/ async (req, res) => {
         try {
@@ -176,7 +193,8 @@ module.exports = (app, svc, jwt) => {
 
             const slug = slugify(article.title)
             const created_at = new Date()
-            
+            const updated_at = new Date()
+
             /*
             console.log("author_id : " + id)
             console.log("title : " + article.title)
@@ -204,9 +222,15 @@ module.exports = (app, svc, jwt) => {
                 "summary" : article.summary,
                 "published" : publish,
                 "created_at" : created_at,
+                "updated_at" : updated_at,
                 "content" : article.content
             }
             
+            console.log("console.log(article.content)")
+            console.log(article.content)
+            console.log("console.log(postArticle.content)")
+            console.log(postArticle.content)
+
             const r1 = await svc.dao.insertArticle(postArticle)
 
             if(publish) {
@@ -219,20 +243,13 @@ module.exports = (app, svc, jwt) => {
     })
 
     app.put("/article/update/", jwt.validateJWT, async (req, res) => {
-        
-        console.log("put test");
         const update = req.body
-
-        //updated_at
-        //published_at
 
         try {
             const update = req.body
-            console.log("body")
             console.log(update)
             console.log(update.field)
             console.log(update.slug)
-            console.log("try");
             let field
             switch (update.field) {
                 case "articleTitle": 
@@ -252,6 +269,8 @@ module.exports = (app, svc, jwt) => {
                     break;
             }
             
+            console.log(field)
+
             const updateField = svc.dao.updateField(update.value, field, update.slug)
             const dateUpdate = new Date()
             const updateDate = svc.dao.updateFieldUpdate_atBySlug(dateUpdate, update.slug)
