@@ -125,8 +125,9 @@ module.exports = class ArticleDAO extends BaseDAO {
     // issue: https://github.com/mscdex/node-mariasql/issues/166
     get5moreArticles(offset) {
         return new Promise((resolve, reject) => {
-            this.db.query('SELECT * from article WHERE published = 1 ORDER BY updated_at  DESC LIMIT ?,5 ',
-            [offset],
+            //this.db.query('SELECT * from article WHERE published = 1 ORDER BY updated_at  DESC LIMIT ?,5 ',
+            this.db.query("SELECT * from article WHERE published = 1 ORDER BY updated_at  DESC LIMIT "+offset+",5" /*,
+            [offset]*/,
             (err, rows, fields) => {
                 if(err) {
                     return reject(err);
@@ -137,10 +138,12 @@ module.exports = class ArticleDAO extends BaseDAO {
     }
     
     insertArticle(article) {
+        console.log("dao inster check content")
+        console.log(article.content)
         return new Promise((resolve, reject) => {
             this.db.query("INSERT INTO article \
                 (author_id, title, meta_title, slug, summary, published, created_at, updated_at, content) \
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 [article.author_id, 
                 article.title, 
                 article.meta_title,

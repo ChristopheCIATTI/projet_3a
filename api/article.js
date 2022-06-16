@@ -231,6 +231,9 @@ module.exports = (app, svc, jwt) => {
             console.log("console.log(postArticle.content)")
             console.log(postArticle.content)
 
+            console.log("console.log(postArticle)")
+            console.log(postArticle)
+
             const r1 = await svc.dao.insertArticle(postArticle)
 
             if(publish) {
