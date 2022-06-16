@@ -8,23 +8,13 @@ class IndexController extends BaseController {
         tokenStatus = this.checkToken()  
         this.ifLogged(tokenStatus)
 
-        //const tokenStatus = this.checkToken()
-        //this.ifLogged(tokenStatus)
-        //this.checkToken()
-        this.getAllArticlesPublished()
+        this.offset = 0
+        this.articleNumber = 0
+        this.getLast10ArticlesPublish()
         this.displayArticles()
-    }
 
-    /*
-    checkToken() {
-        console.log("checkToken")
-        if(sessionStorage.getItem("token") && sessionStorage.getItem("token") != undefined) {
-            const token = sessionStorage.getItem("token")
-            const checkToken = await this.model.checkToken(token)
-            console.log(checkToken)
-        }
+
     }
-    */
 
     async checkToken() {
         if(sessionStorage.getItem("token") && sessionStorage.getItem("token") != undefined) {
@@ -34,7 +24,7 @@ class IndexController extends BaseController {
             
             if(checkToken.status === 401) {
                 this.logout()
-                console("401 : logged again")
+                console.log("401 : logged again")
                 //this.tokenStatus = false
                 //console.log(this.tokenStatus)
                 //return false
@@ -62,12 +52,20 @@ class IndexController extends BaseController {
         const _article = JSON.stringify(articles)
         localStorage.setItem("articlepublished", _article)
     }
+
+    async getLast10ArticlesPublish() {
+        const articles = await this.model.getLast10ArticlesPublish()
+        const _article = JSON.stringify(articles)
+        localStorage.setItem("articlepublished", _article)
+        this.offset = 10
+    }
     
     displayArticles() {
         const articles = JSON.parse(localStorage.getItem("articlepublished"))
         const articlesAvailable = articles.length
+        this.articleNumber = articlesAvailable
 
-        $("#indexArticleNumber").innerHTML += articles.length
+        $("#indexArticleNumber").innerHTML += "<span id='spanArticleNumber'>" + articles.length + "</span>"
 
         let content = ""
         for(let i in articles) {
@@ -98,6 +96,80 @@ class IndexController extends BaseController {
                 }, 
                 false)
         }
+    }
+
+    display5moreArticle() {
+        const articles = JSON.parse(localStorage.getItem("articlepublished"))
+        const articlesAvailable = articles.length
+
+        let content = ""
+        let newArticleNumber = 0
+        for(let i = this.offset; i < articlesAvailable; i++) {
+            newArticleNumber++
+            if(articles[i].content.length >= 380) {
+                articles[i].content = articles[i].content.slice(0, 380)
+                console.log(articles[i].content)
+            }
+
+            content += `<div id='card-${i}' class='card'>`
+            content += "<h2>" + articles[i].title + "</h2>"
+            content += "<h5>" + articles[i].summary + ", " +  this.jsonDateToString(articles[i].created_at) + "</h5>"
+            content += "<p>" + articles[i].content + "</p>"
+            content += "</div>"
+            
+        }
+
+        /*
+        const previousArticleNumber = document.getElementById("spanArticleNumber").innerText
+        if((parseInt(previousArticleNumber) + parseInt(newArticleNumber)) <= articlesAvailable) {
+            $("#spanArticleNumber").innerHTML = (parseInt(previousArticleNumber) + parseInt(newArticleNumber))
+        }*/
+        
+        $("#articleContainer").innerHTML += content
+
+        for(let i = ++this.offset; i < articlesAvailable; i++) {
+            document.getElementById(`card-${i}`)
+            .addEventListener("click", 
+                function() {
+                    this.articleSlug = articles[i].slug;
+
+                    if(localStorage.getItem("articleSlug")) {localStorage.removeItem("articleSlug")}
+
+                    localStorage.setItem("articleSlug", this.articleSlug)
+                    return navigate("article");
+                }, 
+                false)
+        }
+    }
+
+    async more() {
+        console.log("more")
+        console.log("console.log(this.offset)")
+        console.log(this.offset)
+
+        const article = JSON.parse(localStorage.getItem("articlepublished"))
+
+        //const fiveMoreArticles = 
+        const fiveMoreArticles = await this.model.get5moreArticles(this.offset)
+        console.log(fiveMoreArticles)
+        console.log(fiveMoreArticles.length)
+
+        if(fiveMoreArticles.length > 0) {
+            console.log("console.log(fiveMoreArticles[i])")
+            for(let i in fiveMoreArticles) {
+                console.log(fiveMoreArticles[i])
+                article.push(fiveMoreArticles[i])
+            }
+        }
+        
+
+        localStorage.setItem("articlepublished", JSON.stringify(article))
+        this.display5moreArticle()
+
+
+
+
+        this.offset += 5
     }
     
 }

@@ -42,6 +42,36 @@ class ArticleAPI extends BaseAPIService {
         })
     }
 
+    getLast10ArticlesPublish() {
+        this.headers.set('Content-Type', 'application/x-www-form-urlencoded');
+        this.headers.set('Content-Type', 'application/json')
+        this.headers.set('Access-Control-Allow-Origin', '*');
+
+        return new Promise((resolve, reject) => {
+            fetch(`${this.url}/last10publish/`, {
+                method: 'GET',
+                headers: this.headers    
+            })
+            .then(response => {resolve(response.json())})
+            .catch(error => reject(error))
+        })
+    }
+
+    get5moreArticles(offset) {
+        this.headers.set('Content-Type', 'application/x-www-form-urlencoded');
+        this.headers.set('Content-Type', 'application/json')
+        this.headers.set('Access-Control-Allow-Origin', '*');
+
+        return new Promise((resolve, reject) => {
+            fetch(`${this.url}/offset/${offset}/`, {
+                method: 'GET',
+                headers: this.headers    
+            })
+            .then(response => {resolve(response.json())})
+            .catch(error => reject(error))
+        })
+    }
+
     getAllArticlesPublished(bool) {
         this.headers.set('Content-Type', 'application/x-www-form-urlencoded');
         this.headers.set('Content-Type', 'application/json')

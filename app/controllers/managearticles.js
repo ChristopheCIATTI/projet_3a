@@ -36,9 +36,9 @@ class ManageArticlesController extends BaseController {
             
             content += "<div>"
             //content += "menu modifier supprimer"
-            content += `<span data-index-modifier="modifier-${i}" class='hand_text_style'>modifier</span>`
+            content += `<span data-index-modifier="modifier-${i}">modifier</span>`
             content += " "
-            content += `<span data-index-delete="delete-${i}" class='hand_text_style'>supprimer</span>`
+            content += `<span data-index-delete="delete-${i}"'>supprimer</span>`
             content += "</div>"
         }
         $("#articleContainer").innerHTML += content

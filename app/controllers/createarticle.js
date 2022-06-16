@@ -71,27 +71,21 @@ class CreateArticleController extends BaseController {
 
         console.log(error)
         console.log(article)
+        console.log("console.log(article.content)")
+        console.log(article.content)
         if(error === 0) {
             const articleJsoned = JSON.stringify(article)
             console.log(articleJsoned)
             sessionStorage.setItem("articleInProgress", articleJsoned)
-            console.log("carticle content")
+            console.log("article content")
             console.log($("#articleContent"))
             console.log($("#articleContent").innerHTML)
             articleInserted = await this.model.insertArticle(article)
+            console.log(articleInserted)
         }
     }
 
     dataEdit() {
-        console.log("dataEdit()")
-
-        /*
-        [].forEach.call(document.querySelectorAll("[data-edit]"), function(btn) {
-  btn.addEventListener("click", edit, false);
-});
-
-        */
-        
         document.querySelectorAll("[data-edit]").forEach(btn =>
             btn.addEventListener("click", edit)
         );
@@ -102,18 +96,6 @@ class CreateArticleController extends BaseController {
             document.execCommand(cmd_val[0], false, cmd_val[1]);
         }
     }
-
-    /*
-    document.querySelectorAll("[data-edit]").forEach(btn =>
-  			btn.addEventListener("click", edit)
-		);
-
-		function edit(event) {
-			event.preventDefault();
-			var cmd_val = this.dataset.edit.split(":");
-			document.execCommand(cmd_val[0], false, cmd_val[1]);
-		}
-        */
 }
 
 window.createarticleController = new CreateArticleController()

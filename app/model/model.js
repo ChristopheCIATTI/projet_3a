@@ -12,6 +12,10 @@ class Model {
         return this.articleApi.getAllArticles()
     }
 
+    getLast10ArticlesPublish() {
+        return this.articleApi.getLast10ArticlesPublish()
+    }
+
     getAllArticlesPublished() {
         return this.articleApi.getAllArticlesPublished(true)
     }
@@ -26,6 +30,10 @@ class Model {
 
     getAllMyArticles() {
         return this.articleApi.getAllMyArticles()
+    }
+
+    get5moreArticles(offset) {
+        return this.articleApi.get5moreArticles(offset)
     }
 
     insertUser(formValue) {
