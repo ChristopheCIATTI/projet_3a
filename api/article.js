@@ -51,22 +51,35 @@ module.exports = (app, svc, jwt) => {
     })
 
     // Get all articles by his author
+    // Return 10 first article by last update date
     app.get("/article/author/:author", jwt.validateJWT, async (req, res) => {
         const author = req.params.author
-        console.log(author)
         
         try {
             let id = await svc.userDao.getIdByEmail(author)
             id = id[0].id
-            console.log(id)
 
             const article = await svc.dao.getArticleByAuthor(id)
-            console.log(article)
             return res.json(article)
             //return res.status(200).end()
         }
         catch(e) {console.log(e)}
     
+    })
+
+    //fetch(`${this.url}/author/${sessionStorage.getItem("email")}/offset/${offset}`
+    app.get("/article/author/:author/offset/:offset", jwt.validateJWT, async (req, res) => {
+        const author = req.params.author
+        const offset = req.params.offset
+
+        try {
+            let id = await svc.userDao.getIdByEmail(author)
+            id = id[0].id
+
+            const article = await svc.dao.getArticleByAuthor5More(id, offset)
+            return res.json(article)
+        }
+        catch(e) {console.log(e)}
     })
 
     /*
@@ -280,16 +293,6 @@ module.exports = (app, svc, jwt) => {
             
         }
         catch(e) {console.log(e)}
-
-        //http://localhost:3333/article/test articleapi.js:135:17
-        
-        //const id = req.params.id
-        //const article = req.body
-
-        //console.log("body")
-        //console.log(article)
-
-        
     })
 
     app.delete("/article/", /*jwt.validateJWT,*/ async (req, res) => {
@@ -317,12 +320,12 @@ module.exports = (app, svc, jwt) => {
         catch(e) {console.log(e)}
     })
 
-    app.delete("/article/author/:author/id/:id", /*jwt.validateJWT,*/ async (req, res) => {
+    app.delete("/article/author/:author/id/:id", jwt.validateJWT, async (req, res) => {
         const id = req.params.id
         const author = req.params.author
 
         try {
-            await deleteArticleByAuhorAndId(author, id)
+            await svc.dao.deleteArticleByAuhorAndId(author, id)
         }
         catch(e) {console.log(e)}
     })

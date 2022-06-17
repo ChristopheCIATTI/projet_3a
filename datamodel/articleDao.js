@@ -46,7 +46,7 @@ module.exports = class ArticleDAO extends BaseDAO {
 
     getArticleByAuthor(author_id) {
         return new Promise((resolve, reject) => {
-            this.db.query("SELECT * from article WHERE author_id = ?", [author_id], (err, rows, fields) => {
+            this.db.query("SELECT * from article WHERE author_id = ? ORDER BY updated_at DESC LIMIT 10", [author_id], (err, rows, fields) => {
                 if(err) {
                     return reject(err);
                 }
@@ -128,6 +128,24 @@ module.exports = class ArticleDAO extends BaseDAO {
             //this.db.query('SELECT * from article WHERE published = 1 ORDER BY updated_at  DESC LIMIT ?,5 ',
             this.db.query("SELECT * from article WHERE published = 1 ORDER BY updated_at  DESC LIMIT "+offset+",5" /*,
             [offset]*/,
+            (err, rows, fields) => {
+                if(err) {
+                    return reject(err);
+                }
+                resolve(rows);
+            })
+        })
+    }
+
+    //this.db.query("SELECT * from article WHERE author_id = ? ORDER BY updated_at DESC LIMIT 10"
+    getArticleByAuthor5More(id, offset) {
+        console.log("inner dao")
+        console.log("id : " + id)
+        console.log("offset : " + offset)
+        console.log("request")
+        console.log("SELECT * from article WHERE author_id = "+id+" ORDER BY updated_at  DESC LIMIT "+offset+",5")
+        return new Promise((resolve, reject) => {
+            this.db.query("SELECT * from article WHERE author_id = "+id+" ORDER BY updated_at  DESC LIMIT "+offset+",5",
             (err, rows, fields) => {
                 if(err) {
                     return reject(err);
