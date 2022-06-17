@@ -102,9 +102,7 @@ class LoginController extends BaseController {
             console.log("response")
             console.log(response)
             if(response == 403) {
-                
-                popUp.popUpDisplay("Credentials invalides");
-
+                popUp.popUpError("Credentials invalides");
                 console.log("response status = 403")
                 return
                 
@@ -112,7 +110,7 @@ class LoginController extends BaseController {
 
             if(response !== 403 /* == 200 || response == 304 || response == 204*/) {
 
-                popUp.popUpDisplay("Vous êtes Connecté");
+                popUp.popUpValid("Vous êtes Connecté");
                 userInfo = await this.model.getUserInfo(login.email)
                 console.log(userInfo)
             }

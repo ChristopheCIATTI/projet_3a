@@ -127,7 +127,7 @@ class IndexController extends BaseController {
         
         $("#articleContainer").innerHTML += content
 
-        for(let i = ++this.offset; i < articlesAvailable; i++) {
+        for(/*let i = ++this.offset; i < articlesAvailable; i++*/let i in articles) {
             document.getElementById(`card-${i}`)
             .addEventListener("click", 
                 function() {
@@ -165,10 +165,7 @@ class IndexController extends BaseController {
 
         localStorage.setItem("articlepublished", JSON.stringify(article))
         this.display5moreArticle()
-
-
-
-
+        
         this.offset += 5
     }
     

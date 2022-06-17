@@ -23,7 +23,8 @@ class ArticleController extends BaseController {
             .then((value) => {
                 this.displayArticle(); 
                 this.editInput(); 
-                /*this.edit()*/})
+                /*this.edit()*/
+                this.dataEdit()})
 
         this.tokenStatus 
         Promise.all([this.checkToken()]).then((value) => console.log(value))
@@ -84,6 +85,16 @@ class ArticleController extends BaseController {
         $("#articleContent").innerHTML = article.content
     }
 
+    wordCount(value) {
+        var wom = value.match(/\S+/g);
+        return {
+            charactersNoSpace: value.replace(/\s+/g, '').length,
+            characters:  value.length,
+            words: wom ? wom.length : 0,
+            lines: value.split(/\r*\n/).length
+        }
+    }
+
     makeFieldEditable(elem, _input, objtext, id, originValue, content=false) {
         this.lastInputEdited = elem.id
         const input = _input
@@ -117,6 +128,71 @@ class ArticleController extends BaseController {
                 else {if($("#"+id+"").innerText) {elem.innerHTML = $("#"+id+"").innerText}}
                 const fieldUpdated = {
                     "value" : elem.innerHTML,
+                    "field" : elem.id,
+                    "slug" : this.articleSlug
+                }
+                const edit = await this.model.updateArticle(fieldUpdated)
+            }
+
+            if(event.key === "Escape") {
+                console.log(originValue)
+                elem.innerHTML = originValue
+                return
+            } 
+        }.bind(this), false)
+    }
+
+    makeFieldEditableContent(elem, _input, objtext, id, originValue, content=false) {
+        this.lastInputEdited = elem.id
+        const input = _input
+        const elemOrigin = elem
+
+        elem.addEventListener("click", function() {
+            if(!content) {
+                elem.innerHTML = objtext.string1 + elem.innerText + "<br />" + objtext.string2
+                elem.insertAdjacentHTML('beforeend', input)
+    
+            }
+
+            if(content) {
+                elem.insertAdjacentHTML('beforeend', input)
+                //const innerdiv = elem.getElementsByTagName("div")[0].innerText = content
+            } 
+            //else {elem.innerHTML = objtext.string1 + elem.innerText + "<br />" + objtext.string2}
+            //document.getElementById("validateEdit").removeAttribute("hidden");
+        }, {once : true})
+
+        elem.addEventListener("input", function(event) {
+            const value = elem.textContent
+            let v = this.wordCount(value)
+
+            document.getElementById("words_counted").innerText = "Mots : " + v.words
+            document.getElementById("chars_counted").innerText = "Character : " + v.characters
+            this.words = v.words
+            this.characters = v.characters
+
+            if(this.words <= 5 && this.characters <= 50) {
+                articleContentLength
+                document.getElementById("articleContentLength").innerText = "Votre article est trop court pour l'instant"
+            }
+            else {
+                document.getElementById("articleContentLength").innerText = "Vous pouvez poster l'article"
+            }
+        }.bind(this))
+
+        elem.addEventListener("keydown", async function(event) {
+            if(event.key === "Enter") {
+                const articleContent = document.getElementById("articleContent")
+                console.log(articleContent.innerHTML)
+                if(!articleContent.innerHTML || articleContent.innerHTML === "") {
+                    console.log("input vide")
+                    return
+                }
+
+                /*if($("#"+id+"").value) {elem.innerHTML = $("#"+id+"").value} 
+                else {if($("#"+id+"").innerText) {elem.innerHTML = $("#"+id+"").innerText}}*/
+                const fieldUpdated = {
+                    "value" : articleContent.innerHTML,
                     "field" : elem.id,
                     "slug" : this.articleSlug
                 }
@@ -218,7 +294,19 @@ class ArticleController extends BaseController {
         //const inputContent = `<input id="ediContent" value=${editContent.innerText} type="textarea" class="validate" required autofocus="true"></input>`
         const inputContent = `<div contenteditable id="ediContent" class="validate" required autofocus="true"></div>`
         const contentText = {"string1" : "", "string2" : "Editer le contenu : "}
-        this.makeFieldEditable(editContent, inputContent, contentText, "ediContent", editContent.innerText, editContent.innerText)
+        this.makeFieldEditableContent(editContent, inputContent, contentText, "ediContent", editContent.innerText, editContent.innerText)
+    }
+
+    dataEdit() {
+        document.querySelectorAll("[data-edit]").forEach(btn =>
+            btn.addEventListener("click", edit)
+        );
+      
+        function edit(ev) {
+            ev.preventDefault();
+            const cmd_val = this.getAttribute("data-edit").split(":");
+            document.execCommand(cmd_val[0], false, cmd_val[1]);
+        }
     }
 }
 

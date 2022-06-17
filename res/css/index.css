@@ -79,6 +79,8 @@ padding: 20px;
     padding: 20px;
     margin-top: 20px;
     text-decoration: none;
+    margin: 1em;
+    padding: 0.5em;
 }
 
 .card:hover {
@@ -87,6 +89,7 @@ padding: 20px;
     margin-top: 20px;
     text-decoration: none;
     box-shadow: 10px 5px 5px #00416A;
+    border: 0.5em dotted #00416A
 }
 
 .vbar {
@@ -294,6 +297,7 @@ background-color: #F1FAEE;
 */
 .containerBorder {
     margin-top: 2em;
+    margin-bottom: 2em;
     border-left: 3px solid black;
     border-right: 3px solid black;
     border-top: 3px solid black;
@@ -364,62 +368,6 @@ select > option.hidden_option{
     text-decoration: none;
 }
 
-
-/* Popup css : a améliorer */
-#PopUpStyle {
-    font-family: impact;
-    border-radius: 0.5em;
-    padding: 1em;
-    text-align: center;
-    background: #007fff;
-    box-shadow : 0 0 10px #000000;
-    position: fixed;
-    width: 20%;
-    top: 25%;
-    left: 80%;
-    letter-spacing: .1em;
-    transition:left 1s, opacity 1s;
-    text-shadow: 0 0 1px #000000;
-}
-#PopUpStyle:hover {
-    background: lightskyblue;
-    transform: scale(1.02);
-}
-#PopUpStyle a {
-    float: right;
-    color: #C60800;
-    text-shadow: 0 0 2px #000000;
-    margin-bottom: 0.5em;
-}
-#PopUpStyle a:hover {
-    transform: scale(2.1);
-    color: red;
-}
-#PopUpStyle a:hover ~ body {
-    color: yellow;
-}
-
-#PopUpStyle button {
-    text-align: center;
-    box-shadow: 0 0 10px #000000;
-    background: #007fff;
-    border: solid 2px darkred;
-    display: inline-block;
-    padding: .5em;
-    margin: 1.5em;
-    border-radius: 10em;
-    letter-spacing: 1em;
-    text-shadow: 0 0 1px #000000;
-    transform: scale(1.1);
-}
-#PopUpStyle button:hover {
-    background: ivory !important;
-    box-shadow: 0 0 1px #000000;
-}
-#PopUpStyle p {
-    clear: both;
-}
-
 .article {
     text-align: center;
 }
@@ -440,21 +388,84 @@ select > option.hidden_option{
 
 .moreButton {
     background-image: linear-gradient(to right, #283048 0%, #859398  51%, #283048  100%);
-            margin: 10px;
-            padding: 15px 45px;
-            text-align: center;
-            text-transform: uppercase;
-            transition: 0.5s;
-            background-size: 200% auto;
-            color: white;            
-            box-shadow: 0 0 20px #eee;
-            border-radius: 10px;
-            display: block;
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+    left: 50%;
+    position: static;
 }
 
 .moreButton:hover {
     background-position: right center; /* change the direction of the change here */
-            color: #fff;
-            text-decoration: none;
+    color: #fff;
+    text-decoration: none;
+}
+    
+.deleteButton {
+    background-image: linear-gradient(to right, #0575E6 0%, #021B79  51%, #0575E6  100%);
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+  }
+
+.deleteButton:hover {
+background-position: right center; /* change the direction of the change here */
+color: #fff;
+text-decoration: none;
+}
+ 
+.articleInfo {
+    text-align: center;
+    display: inline-block;   
 }
 
+.moreButtonMyArticle {
+    width: 6.5em;
+    height: 2.3em;
+    margin: 0.5em;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 0.625em;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.letter {
+    text-shadow: 5px 6px 5px rgba(179,86,206,0.61);
+    font-size: 16;
+}
+
+.aac {
+    margin: 1px;
+    border: 1px solid brown ;
+    font-size: 14;
+}
+
+.acc:hover {
+    -webkit-box-shadow: 19px 15px 35px 33px rgba(95,95,95,0.52); 
+    box-shadow: 19px 15px 35px 33px rgba(95,95,95,0.52);
+}
+
+.acc:active {
+    -webkit-box-shadow: 19px 15px 35px 33px rgba(95,95,95,0.52); 
+    box-shadow: 19px 15px 35px 33px rgba(95,95,95,0.52);
+}

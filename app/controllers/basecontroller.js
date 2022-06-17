@@ -23,9 +23,9 @@ class BaseController {
         tokenStatus.then(status => {
             if(status == false) {
                 console.log(status)
-                popUp.popUpDisplay("Session expiré veuillez \nvous authentifier à nouveaux");
+                popUp.popUpError("Session expiré veuillez \nvous authentifier à nouveaux");
                 return false
-            } 
+            }
             if(status == true) {
                 this.navBarLogged()
                 return true
@@ -36,6 +36,7 @@ class BaseController {
     logout() {
         sessionStorage.removeItem("token")
         sessionStorage.removeItem("user")
+        localStorage.clear()
         this.restoreNavBar()
         navigate('login')
     }

@@ -136,6 +136,23 @@ class ArticleAPI extends BaseAPIService {
         })
     }
 
+    get5moreMyArticles(offset) {
+        const sendToken = this.sendToken()
+        this.headers.set('Content-Type', 'application/x-www-form-urlencoded');
+        this.headers.set('Content-Type', 'application/json')
+        this.headers.set('Access-Control-Allow-Origin', '*');
+        this.headers.set('Authorization', sendToken)
+
+        return new Promise((resolve, reject) => {
+            fetch(`${this.url}/author/${sessionStorage.getItem("email")}/offset/${offset}`, {
+                method: 'GET',
+                headers: this.headers    
+            })
+            .then(response => {resolve(response.json())})
+            .catch(error => reject(error))
+        })
+    }
+
     insertArticle(article) {
         const sendToken = this.sendToken()
         this.headers.set('Content-Type', 'application/x-www-form-urlencoded');
@@ -159,13 +176,27 @@ class ArticleAPI extends BaseAPIService {
         this.headers.set('Access-Control-Allow-Origin', '*');
         this.headers.set('Authorization', sendToken)
 
-        console.log(`${this.url}/update/`)
-        console.log("article")
-        console.log(value)
-
         return new Promise((resolve, reject) => {
             fetch(`${this.url}/update/`, {
                 method: 'PUT',
+                headers: this.headers,
+                body: JSON.stringify(value)
+            })
+        })
+    }
+
+    deleteArticle(value) {
+        const sendToken = this.sendToken()
+        this.headers.set('Content-Type', 'application/x-www-form-urlencoded');
+        this.headers.set('Content-Type', 'application/json')
+        this.headers.set('Access-Control-Allow-Origin', '*');
+        this.headers.set('Authorization', sendToken)
+
+        console.log(value)
+        
+        return new Promise((resolve, reject) => {
+            fetch(`${this.url}/author/${value.author_id}/id/${value.id}`, {
+                method: 'DELETE',
                 headers: this.headers,
                 body: JSON.stringify(value)
             })

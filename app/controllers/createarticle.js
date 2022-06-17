@@ -69,17 +69,9 @@ class CreateArticleController extends BaseController {
             console.log("article trop court")
         }
 
-        console.log(error)
-        console.log(article)
-        console.log("console.log(article.content)")
-        console.log(article.content)
         if(error === 0) {
             const articleJsoned = JSON.stringify(article)
-            console.log(articleJsoned)
             sessionStorage.setItem("articleInProgress", articleJsoned)
-            console.log("article content")
-            console.log($("#articleContent"))
-            console.log($("#articleContent").innerHTML)
             articleInserted = await this.model.insertArticle(article)
             console.log(articleInserted)
         }

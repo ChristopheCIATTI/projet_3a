@@ -36,6 +36,10 @@ class Model {
         return this.articleApi.get5moreArticles(offset)
     }
 
+    get5moreMyArticles(offset) {
+        return this.articleApi.get5moreMyArticles(offset)
+    }
+
     insertUser(formValue) {
         return this.userApi.insertUser(formValue)
     }
@@ -62,5 +66,9 @@ class Model {
 
     updateArticle(value) {
         return this.articleApi.updateArticle(value)
+    }
+
+    deleteArticle(value) {
+        return this.articleApi.deleteArticle(value)
     }
 }
