@@ -34,6 +34,7 @@ module.exports = (app, svc, jwt) => {
         catch(e) {console.log(e)}
     })
 
+    // ? WTF
     app.get("/user/authorId/:authorId/", async (req, res) => {
         const authorId = req.params.authorId
         try {

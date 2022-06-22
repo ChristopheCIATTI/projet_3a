@@ -4,13 +4,16 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
-
 const app = express()
+
 app.use(bodyParser.urlencoded({ extended: false })) // URLEncoded form data
 app.use(bodyParser.json()) // application/json
 app.use(cors())
 app.use(morgan('dev')); // toutes les requêtes HTTP dans le log du serveur
 app.use(cookieParser())
+
+
+
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -21,20 +24,19 @@ const db = mysql.createConnection({
 
 db.connect(function(err) {
     if (err) throw err;
-    console.log("Connecté à la base de données MySQL!");
+    //console.log("Connecté à la base de données MySQL!");
   });
 
+console.log("Server is running")
 
-//const UserAccountService = require("./services/useraccount")
-//const userAccountService = new UserAccountService(db)
 const UserService = require("./services/user")
 const userService = new UserService(db)
+
 const ArticleService = require("./services/article")
 const articleService = new ArticleService(db)
 
 const jwt = require('./jwt')(userService, articleService)
 
-//require('./api/useraccount')(app, userAccountService, jwt)
 require("./api/article")(app, articleService , jwt)
 require("./api/user")(app, userService, jwt)
 require('./datamodel/seeder')( 

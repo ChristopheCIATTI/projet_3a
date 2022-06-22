@@ -93,7 +93,6 @@ module.exports = (app, svc, jwt) => {
     })
     */
 
-    // WTF ???!
     app.get("/article/author/:author/id/:id", /*jwt.validateJWT,*/ async (req, res) => {
         const id = req.params.id
         const author = req.params.author
@@ -326,6 +325,14 @@ module.exports = (app, svc, jwt) => {
 
         try {
             await svc.dao.deleteArticleByAuhorAndId(author, id)
+        }
+        catch(e) {console.log(e)}
+    })
+
+    app.delete("/article/slug/:slug", jwt.validateJWT, async (req, res) => {
+        const slug = req.params.slug
+        try {
+            await svc.dao.deleteArticleBySlug(slug)
         }
         catch(e) {console.log(e)}
     })

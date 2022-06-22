@@ -256,5 +256,10 @@ module.exports = class ArticleDAO extends BaseDAO {
         })
     }
 
-    
+    deleteArticleBySlug(slug) {
+        return new Promise((resolve, reject) => {
+            this.db.query("DELETE FROM article WHERE slug = ?",
+            [slug])
+        })
+    }
 }
