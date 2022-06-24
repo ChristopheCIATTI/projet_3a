@@ -20,8 +20,8 @@
     "supertest": "^6.2.3"
   },
   "scripts": {
-    "run": "node main.js",
-    "test": "mocha --exit ./test/article.test.js",
+    "start": "node main.js",
+    "test": "mocha --exit --file ./test/user.test.js ./test/article.test.js",
     "debug": "node --inspect --inspect-brk main.js"
   }
 }
