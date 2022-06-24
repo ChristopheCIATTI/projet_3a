@@ -64,6 +64,7 @@ describe("index", () => {
         //console.log(window)
         //console.log(window.indexController)
         //console.log()      
-        console("Les tests unit du front sont non focntionnels")
+        console.log("Les tests unit du front sont non focntionnels")
+        console.log("le probleme est entre la chaise et le clavier")
     })
 })
