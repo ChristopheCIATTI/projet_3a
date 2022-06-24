@@ -16,9 +16,10 @@ class RegisterController extends BaseController {
         for (let item in user) {
             console.log(user[item])
             if(user[item] == null ||user[item].length == 0) {
-                console.log("champ vide")
+                //console.log("champ vide")
                 required += 1
                 //this.toast("champ vide") le toast ne fonctionne pas
+                popUp.popUpError("Erreur, le champs est vide");
             }
         }
 

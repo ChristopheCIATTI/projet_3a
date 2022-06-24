@@ -1,3 +1,5 @@
+window = window || global
+
 class IndexController extends BaseController {
     constructor() {
         super()
@@ -62,7 +64,8 @@ class IndexController extends BaseController {
     
     displayArticles() {
         const articles = JSON.parse(localStorage.getItem("articlepublished"))
-        const articlesAvailable = articles.length
+        
+        let articlesAvailable = articles.length
         this.articleNumber = articlesAvailable
 
         $("#indexArticleNumber").innerHTML += "<span id='spanArticleNumber'>" + articles.length + "</span>"
@@ -170,5 +173,4 @@ class IndexController extends BaseController {
     }
     
 }
-
 window.indexController = new IndexController()

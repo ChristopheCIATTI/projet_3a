@@ -11,13 +11,6 @@ class ArticleController extends BaseController {
             return
         }
 
-        /*
-        let tokenStatus
-        tokenStatus = this.checkToken()  
-        //this.ifLogged(tokenStatus)
-        console.log(tokenStatus)
-        */
-        
         this.article = this.getArticle()
         Promise.all([this.article])
             .then((value) => {
@@ -28,7 +21,6 @@ class ArticleController extends BaseController {
 
         this.tokenStatus 
         Promise.all([this.checkToken()]).then((value) => console.log(value))
-        
     }
 
     async checkToken() {
@@ -51,7 +43,6 @@ class ArticleController extends BaseController {
                 this.tokenStatus = true
                 return this.tokenStatus
             }
-            
         }
 
         if(!sessionStorage.getItem("token") || sessionStorage.getItem("token") == undefined) {
@@ -72,13 +63,13 @@ class ArticleController extends BaseController {
 
     async displayArticle() {
         const article = JSON.parse(localStorage.getItem("article"))
-        const author = JSON.parse(localStorage.getItem("author"))
+        //const author = JSON.parse(localStorage.getItem("author"))
 
         $("#articleTitle").innerHTML = article.title
         $("#articleSumary").innerHTML = article.summary
-        $("#article-author-firstName").innerHTML = author.firstname
-        $("#article-author-middleName").innerHTML = author.middleName
-        $("#article-author-lastName").innerHTML = author.lastName
+        $("#article-author-firstName").innerHTML = article.firstname
+        $("#article-author-middleName").innerHTML = article.middleName
+        $("#article-author-lastName").innerHTML = article.lastName
         $("#articlePublishDate").innerHTML += this.jsonDateToString(article.published_at)
         $("#articleArticleUpdateDate").innerHTML = (article.updated_at != null || article.updated_at != "undefined") ? `Article mis à jour le : ${this.jsonDateToString(article.updated_at)}` : "" 
         $("#articlePublish").innerHTML += article.published == 1 ? "Article publié" : "Article pas publié" 
@@ -166,6 +157,9 @@ class ArticleController extends BaseController {
             const value = elem.textContent
             let v = this.wordCount(value)
 
+            document.getElementById("words_counted").hidden = false
+            document.getElementById("chars_counted").hidden = false
+            document.getElementById("articleContentLength").hidden = false
             document.getElementById("words_counted").innerText = "Mots : " + v.words
             document.getElementById("chars_counted").innerText = "Character : " + v.characters
             this.words = v.words
@@ -257,12 +251,17 @@ class ArticleController extends BaseController {
     }
 
     editInput() {
+        if(! localStorage.getItem("author")) {return}
         const author = JSON.parse(localStorage.getItem("author"))
         const firstname = sessionStorage.getItem("firstname")
             
         if(firstname !== author.firstname) {
             console.log(`firstname : ${firstname}, author.firstname : ${author.firstname}`)
             return}
+
+
+        console.log("firstname : " + firstname)
+        console.log("author.firstname : " + author.firstname)
 
         const editTitle = document.getElementById("articleTitle")
         //"'+ ui.text +'" value=${editTitle.innerText}
@@ -290,11 +289,16 @@ class ArticleController extends BaseController {
     
         this.makeFieldEditableRadio(editStatus, inputStatus, "editPublish", editStatus.innerText)
 
+        document.getElementById("richTextHide").hidden = false
         const editContent = document.getElementById("articleContent")
+        editContent.setAttribute("contenteditable", "true");
         //const inputContent = `<input id="ediContent" value=${editContent.innerText} type="textarea" class="validate" required autofocus="true"></input>`
         const inputContent = `<div contenteditable id="ediContent" class="validate" required autofocus="true"></div>`
         const contentText = {"string1" : "", "string2" : "Editer le contenu : "}
         this.makeFieldEditableContent(editContent, inputContent, contentText, "ediContent", editContent.innerText, editContent.innerText)
+    
+        document.getElementById("deletediv").hidden = false;
+    
     }
 
     dataEdit() {

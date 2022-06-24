@@ -4,9 +4,9 @@ class LoginController extends BaseController {
         super(false)
         this.init()
         this.model = new Model()
-        let tokenStatus
-        tokenStatus = this.checkToken()  
-        this.ifLogged(tokenStatus)
+        //let tokenStatus
+        //tokenStatus = this.checkToken()  
+        //this.ifLogged(tokenStatus)
     }
     
     init() {
@@ -14,36 +14,8 @@ class LoginController extends BaseController {
         const h1 = document.getElementById("formTitle")
         const forgotPwd = document.getElementById("textforgotPwd")
         h1.textContent = "Se connecter"
-        /*
-        fetch("./app/text/user.json")
-        .then(response => response.json())
-        .then(response => console.log(response))
-        .then(response => {
-            h1.textContent = .responseloginFormTitle
-            //forgotPwd.textContent = response.forgotPwd ? response.forgotPwd : "Mot de passe oublié?" 
-        })*/
-        //.then(response => console.log(response.forgotPwd))
-        //.then(response => h1.textContent = response.loginFormTitle)
-        //.then(response => forgotPwd.textContent = response.forgotPwd)
     }
-    /*
-    ifLogged(tokenStatus) {
-        tokenStatus.then(status => {
-            if(status == false) {
-                console.log(status)
-                //this.logout()
-                return false
-            } 
-            if(status == true) {
-                //this.displayUserInfo()
-                //navigate("profileUser")
-                this.updateNavBar("navbarProfile", "Mon compte" , "useraccount")
-                return true
-            }
-        })
-    }*/
-    
-    
+
     async checkToken() {
         if(sessionStorage.getItem("token") && sessionStorage.getItem("token") != undefined) {
             const token = sessionStorage.getItem("token")

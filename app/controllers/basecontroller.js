@@ -23,7 +23,9 @@ class BaseController {
         tokenStatus.then(status => {
             if(status == false) {
                 console.log(status)
-                popUp.popUpError("Session expiré veuillez \nvous authentifier à nouveaux");
+                popUp.popUpError("Vous etes pas connecté");
+                localStorage.clear()
+                sessionStorage.clear()        
                 return false
             }
             if(status == true) {

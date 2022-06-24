@@ -57,6 +57,7 @@ function include(selector, url, urlcontroller) {
 }
 
 function navigate(view) {
+    console.log("navigate to : " + view)
     include('content',  `views/${view}.html`, `app/controllers/${view}.js`)
 }
 
