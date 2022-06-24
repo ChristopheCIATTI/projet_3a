@@ -12,20 +12,36 @@ app.use(cors())
 app.use(morgan('dev')); // toutes les requêtes HTTP dans le log du serveur
 app.use(cookieParser())
 
-
-
-
 const db = mysql.createConnection({
     host: 'localhost',
     port: '3306',
     user: 'root',
-    database : 'esimed_projet3a_cms_blog'
-});
+    database : 'esimed_projet3a_cms_blog_test'
+},function(error){if(error){throw error}})
+
 
 db.connect(function(err) {
-    if (err) throw err;
-    //console.log("Connecté à la base de données MySQL!");
-  });
+  if (err) throw err;
+  //console.log("Connected!");
+});
+
+
+/*
+let db
+try {
+  /*const db = mysql.createConnection({
+    host: 'localhost',
+    port: '3306',
+    user: 'root',
+    database : 'esimed_projet3a_cms_blog_test'
+});
+}
+catch(e) {
+  console.log("ERROR")
+  console.log(e)
+  return 
+}
+*/
 
 console.log("Server is running")
 
@@ -39,9 +55,7 @@ const jwt = require('./jwt')(userService, articleService)
 
 require("./api/article")(app, articleService , jwt)
 require("./api/user")(app, userService, jwt)
-require('./datamodel/seeder')( 
-    articleService,
-    userService
-    )
-    .then(app.listen(3333))
+//require("./datamodel/mysqlCheck")(db)
+require('./datamodel/seeder')( articleService, userService)
+.then(app.listen(3333))
 
