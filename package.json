@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --exit ./test/*.test.js"
+    "test": "mocha --exit --file ./test/popUp.test.js ./test/index.test.js"
   },
   "repository": {
     "type": "git",

@@ -21,7 +21,7 @@ chai.should()
 
 const index = fs.readFileSync("./index.html")
 const document = new JSDOM(index)
-const indexControllerView = fs.readFileSync("./views/index.html")
+//const indexControllerView = fs.readFileSync("./views/index.html")
 //const indexController = require("./app/controllers/index.js")
 
 //const indexController = eval("./../app/controllers/index.js")
@@ -40,12 +40,12 @@ let  window = document.window//= document.defaultView;
 window.document = document;
 
 
-const baseController = require("./../app/controllers/basecontroller.js").window
+//const baseController = require("./../app/controllers/basecontroller.js").window
 //window.baseController = baseController
 //window.indexController = indexController
 
-const ctrl = fs.readFileSync("./app/controllers/basecontroller.js")
-const newctrl = new BaseController().window
+//const ctrl = fs.readFileSync("./app/controllers/basecontroller.js")
+//const newctrl = new BaseController().window
 
 //console.log(dom.window.document.getElementById("main").textContent);
 
@@ -64,6 +64,6 @@ describe("index", () => {
         //console.log(window)
         //console.log(window.indexController)
         //console.log()      
-        console.log(ctrl)
+        console("Les tests unit du front sont non focntionnels")
     })
 })
