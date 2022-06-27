@@ -17,7 +17,9 @@ class ArticleController extends BaseController {
                 this.displayArticle(); 
                 this.editInput(); 
                 /*this.edit()*/
-                this.dataEdit()})
+                this.dataEdit()
+                this.deleteArticleButton()
+            })
 
         this.tokenStatus 
         Promise.all([this.checkToken()]).then((value) => console.log(value))
@@ -311,6 +313,35 @@ class ArticleController extends BaseController {
             const cmd_val = this.getAttribute("data-edit").split(":");
             document.execCommand(cmd_val[0], false, cmd_val[1]);
         }
+    }
+
+    /*
+    deleteArticleButton() {
+        document.getElementById("deleteButton")
+        .addEventListener("click", function(event) {
+            const article = JSON.parse(localStorage.getItem("article"))
+            const confirmation = confirm("voulez vous supprimer l'article ?")
+
+                if(confirmation) {
+                    console.log(`article`)
+                    console.log(article)
+                    const r = await this.model.deleteArticle(article)
+                }
+                return
+        }.bind(this))
+    }
+    */
+
+    deleteArticleButton() {
+        document.getElementById("deleteButton")
+        .addEventListener("click", async function(event) {
+            const confirmation = confirm("voulez vous supprimer l'article ?")
+            if(confirmation) {
+                const article = JSON.parse(localStorage.getItem("article"))
+                localStorage.removeItem('article');
+                const r = await this.model.deleteArticle(article)
+            }
+        }.bind(this))
     }
 }
 
