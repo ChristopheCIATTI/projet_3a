@@ -12,6 +12,17 @@ app.use(cors())
 app.use(morgan('dev')); // toutes les requêtes HTTP dans le log du serveur
 app.use(cookieParser())
 
+/*
+(require("./script/mysqlCheckDataBase"));
+(require("./script/mysqlCheckTables"));
+
+*/
+//require("./script/mysqlCheckDataBase")()
+//require("./script/mysqlCheckTables")()
+
+//Promise.all([require("./script/mysqlCheckDataBase")()])
+//.then(require("./script/mysqlCheckTables")())
+
 const db = mysql.createConnection({
     host: 'localhost',
     port: '3306',
@@ -26,22 +37,7 @@ db.connect(function(err) {
 });
 
 
-/*
-let db
-try {
-  /*const db = mysql.createConnection({
-    host: 'localhost',
-    port: '3306',
-    user: 'root',
-    database : 'esimed_projet3a_cms_blog_test'
-});
-}
-catch(e) {
-  console.log("ERROR")
-  console.log(e)
-  return 
-}
-*/
+
 
 console.log("Server is running")
 
@@ -49,6 +45,7 @@ const UserService = require("./services/user")
 const userService = new UserService(db)
 
 const ArticleService = require("./services/article")
+const { promise } = require('bcrypt/promises')
 const articleService = new ArticleService(db)
 
 const jwt = require('./jwt')(userService, articleService)

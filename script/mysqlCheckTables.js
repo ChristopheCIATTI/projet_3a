@@ -1,6 +1,11 @@
-const mysql = require('mysql2')
+const { promise, reject } = require('bcrypt/promises');
+const { response } = require('express');
+const mysql = require('mysql2');
+const { resolve } = require('path');
 
-console.log("check database")
+module.exports = function() {
+
+console.log("check tables")
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -14,19 +19,48 @@ db.connect(function(err) {
 });
 
 db.query("USE esimed_projet3a_cms_blog_test")
-
-const checkDBTableUser = function() {
+/*
+const checkDB = async function() {
+    return new Promise((resolve, reject) => {
+        try {
+            checkDBInner = new Promise((resolve, reject) => {
+                //USE esimed_projet3a_cms_blog_test
+                //SHOW TABLES FROM esimed_projet3a_cms_blog_test
+                db.query("USE esimed_projet3a_cms_blog_test", (err, rows, fields) => {
+                    if(err) {
+                        return reject(err);
+                    }
+                    rows = rows
+                    resolve(rows);
+                })                
+            })
+            checkDBInner.then(response => {
+                if(response === [] || response === undefined || response === null || response.length === 0) {
+                    console.log("DataBase not found")
+                    console.log("Create DataBase")
+                    db.query("CREATE DATABASE esimed_projet3a_cms_blog_test")
+                    db.query("USE esimed_projet3a_cms_blog_test")
+                }
+            })
+            resolve()
+        }
+        catch(e) {console.log(e); reject(e)}
+    })
+}
+*/
+const checkDBTableUser = async function() {
+    return new Promise((resolve, reject) => {
     try {
-        new Promise((resolve, reject) => {
+        checkDBTableUserInner = new Promise((resolve, reject) => {
             db.query("SHOW TABLES LIKE 'user'", (err, rows, fields) => {
                 if(err) {
                     return reject(err);
                 }
+                rows = rows
                 resolve(rows);
             })
         })
-        .then(response => console.log(response))
-        .then(response => {
+        checkDBTableUserInner.then(response => {
             if(response === [] || response === undefined || response === null || response.length === 0) {
                 console.log("Table user not found")
                 console.log("Create Table user")
@@ -48,26 +82,31 @@ const checkDBTableUser = function() {
                 db.query("ALTER TABLE `user` ADD UNIQUE KEY (`email`)")
                 db.query("ALTER TABLE `user` ADD UNIQUE KEY (`mobile`)")
 
-                db.query("ALTER TABLE `user` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;")
+                db.query("ALTER TABLE `user` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT")
                 db.query("COMMIT;")
+
+                console.log("END Create Table user")
             }
+            resolve()
         })
     }
-    catch(e) {console.log(e)}
+    catch(e) {console.log(e); reject(e)}
+    })
 }
 
-const checkDBTableArticle = function() {
+const checkDBTableArticle = async function() {
+    return new Promise((resolve, reject) => {
     try {
-        new Promise((resolve, reject) => {
+        checkDBTableArticleInner = new Promise((resolve, reject) => {
             db.query("SHOW TABLES LIKE 'article'", (err, rows, fields) => {
                 if(err) {
                     return reject(err);
                 }
+                rows = rows
                 resolve(rows);
             })
         })
-        .then(response => console.log(response))
-        .then(response => {
+        checkDBTableArticleInner.then(response => {
             if(response === [] || response === undefined || response === null || response.length === 0) {
                 console.log("Table article not found")
                 console.log("Create Table article")
@@ -91,12 +130,21 @@ const checkDBTableArticle = function() {
                 db.query("ALTER TABLE `article` ADD PRIMARY KEY (`id`);")
                 db.query("ALTER TABLE `article` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;")
                 db.query("COMMIT;")
+
+                console.log("END Create Table article")
             }
+            resolve()
         })
     }
-    catch(e) {console.log(e)}
+    catch(e) {console.log(e); reject(e)}
+    })
 }
+/*
+Promise.all([checkDB]).then(() => {checkDBTableUser(); checkDBTableArticle();})
+*/
+checkDBTableUser();
+checkDBTableArticle();
 
-checkDBTableUser()
-checkDBTableArticle()
+setTimeout(() => {db.end; return}, 2500)
 
+}
