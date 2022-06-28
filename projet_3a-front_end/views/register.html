@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<div class="container">
+    <form id="registerForm" class="box">
+        <h1 class="formTitle">Creer un compte</h1>
+        <fieldset class="inputs">
+            <div>
+                <input id="firstname" placeholder="Prenom" type="text" class="validate" required autofocus>
+            </div>
+            <div>
+                <input id="lastName" placeholder="Nom" type="text" class="validate" required>
+            </div>
+            <div>
+                <input id="email" placeholder="Email" type="email" class="validate" placeholder="user@exemple.com" required>
+            </div>
+            <div>
+                <input id="password" placeholder="Mot de passe" type="password" class="validate" required>
+            </div>
+        </fieldset>
+        <fieldset id="actions">
+            <input type="submit" id="submit" value="Creer un compte" class="button-41" role="button" onclick="registerController.createAccount()">
+        </fieldset>
+    </form>

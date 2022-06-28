@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<style>
+    #content {
+        margin-top: 0.5em;
+        /*background-image: rgba(0, 0, 0, 0) linear-gradient(to right, rgb(96, 56, 19), rgb(178, 159, 148)) repeat scroll 0% 0%;*/
+        background: rgba(0, 0, 0, 0) linear-gradient(to right, rgb(96, 56, 19), rgb(178, 159, 148)) repeat scroll 0% 0%;
+        height: 100%;
+        border-top: 3px solid black;
+    }
+    .editButtons span{
+        display:inline-block;
+        white-space:nowrap;
+    }
+
+    [data-edit] {
+        float:left;
+        border:0;
+        font: 12px/1 monospace;
+        background:#ddd;
+        padding:4px 8px;    
+    }
+
+    [contenteditable] {
+        padding:4px 16px;
+        background:#eee;
+    }
+   
+</style>
+<div class="container containerBorder">
+    <form id="createArtcileForm" class="createArticleBox">
+        <center><h1 class="formTitle">Creer votre article</h1></center>
+        <fieldset class="inputs">
+            <div>
+                <input id="articleTitle" placeholder="Titre de l'article" type="text" class="validate" required>
+            </div>
+            <div>
+                <input id="articleMeta" placeholder="Meta description" type="text" class="validate" required>
+            </div>
+            <div>
+                <input id="articleSummary" placeholder="Resumé de l'article" type="text" class="validate" required>
+            </div>
+            <div id="richTextButton" style=" width: 50%; margin: 0 auto; text-align: center;">
+                <!--
+                <button data-edit="bold"><b>B</b></button> 
+                <button data-edit="italic"><i>I</i></button> 
+                <button data-edit="formatBlock:p">P</button> 
+                <button data-edit="formatBlock:H1">H1</button> 
+                <button data-edit="insertUnorderedList">UL</button> 
+                <button data-edit="justifyLeft">&#8676;</button> 
+                <button data-edit="justifyRight">&#8677;</button> 
+                <button data-edit="removeFormat">&times;</button>
+                -->
+
+                <span title="STYLES">
+                    <button data-edit="bold"><b>B</b></button>
+                    <button data-edit="italic"><i>I</i></button>
+                    <button data-edit="underline"><u>U</u></button>
+                    <button data-edit="strikeThrough"><s>S</s></button>
+                  </span>
+                  
+                  <span title="TEXT FORMAT">
+                    <button data-edit="formatBlock:p">P</button>
+                    <button data-edit="formatBlock:H1">H1</button>
+                    <button data-edit="formatBlock:H2">H2</button>
+                    <button data-edit="formatBlock:H3">H3</button>
+                  </span>
+                
+                  <span title="FONT SIZE">
+                    <button data-edit="fontSize:1">&#8613;s</button>
+                    <button data-edit="fontSize:3">&#8613;M</button>
+                    <button data-edit="fontSize:5">&#8613;L</button>
+                  </span>
+                
+                  <span title="LISTS">
+                    <button data-edit="insertUnorderedList">UL</button>
+                    <button data-edit="insertOrderedList">OL</button>
+                  </span>
+                
+                  <span title="ALIGNMENT">
+                    <button data-edit="justifyLeft">&#8676;</button>
+                    <button data-edit="justifyCenter">&#8596;</button>
+                    <button data-edit="justifyRight">&#8677;</button>
+                  </span>
+                
+                  <span title="CLEAR FORMATTING">
+                    <button data-edit="removeFormat">&times;</button>
+                  </span>
+
+                  <span title="BR">
+                    <button data-edit="breakRow:BR">BR</button>
+                  </span>
+
+
+                <br/>
+                <div contenteditable id="articleContent" placeholder="Article contenu" rows=5 cols=50
+                 required class="validate"></div>
+                 <br/>
+                 <a id="words_counted">Mots : </a> <a id="chars_counted">Character : </a>
+                 <br/>
+                 <a id="articleContentLength"></a>
+            </div>
+            <!--<div contenteditable><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p></div>-->
+            <div>
+                <!--<label for="published">Publié l'article</label>-->
+                <select name="articlePublished" id="articlePublished" class="selectinput" required>
+                    <option value="" hidden>Choisir une option de publication</option>
+                    <option value="unpublish">Ne pas publié</option>
+                    <option value="publish">Publié</option>
+                </select>
+            </div>
+        </fieldset>
+        <fieldset id="actions">
+            <input type="submit" id="submit" value="Enregister l'article" class="buttonlg" role="button" onclick="createarticleController.registerArtcile()">
+        </fieldset>
+    </form>
+
+
+
+
+<!--
+title
+
+meta
+
+summary
+
+published
+
+content
+-->

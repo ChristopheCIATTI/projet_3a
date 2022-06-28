@@ -80,8 +80,6 @@ call npm test
 
 cd ..
 
-echo.
-
 echo ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 echo :: Download Back                                                        ::
 echo ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -89,8 +87,9 @@ echo ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 curl -LO %back_url%
 
 @echo off
-unzip.exe back_end.zip    
-::cd projet_3a-back_end
+unzip.exe back_end.zip
+
+::call db.cmd
 
 echo ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 echo :: Create DataBase                                                      ::
@@ -101,12 +100,14 @@ set back_end_path=%cd%
 cd sql
 echo %cd%
 set sqldir=%cd%
+echo %sqldir%
 
 cd c:\xampp\mysql\bin
 
 mysql.exe -u root -e "CREATE DATABASE esimed_projet3a_cms_blog_test"
 mysql.exe -u root -e "USE esimed_projet3a_cms_blog_test"
 mysql.exe -u root -e "SHOW DATABASES LIKE 'esimed_projet3a_cms_blog_test'"
+
 
 echo ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 echo :: Create DataBase Tables                                               ::
@@ -117,8 +118,6 @@ set articlesql=%sqldir%\article.sql
 
 echo path user.sql : %usersql%
 echo path article.sql : %articlesql%
-
-mysql.exe -u root -e "USE esimed_projet3a_cms_blog_test"
 
 mysql.exe -u root esimed_projet3a_cms_blog_test < %usersql%
 mysql.exe -u root esimed_projet3a_cms_blog_test < %articlesql%
