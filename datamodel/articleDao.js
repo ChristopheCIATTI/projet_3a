@@ -187,11 +187,13 @@ module.exports = class ArticleDAO extends BaseDAO {
 
         if(field === "title") {
             console.log("title detect")
-            console.log("at updateField(value, field, slug + log data given)")
-            console.log(value)
-            console.log(field)
-            console.log(slug)
-        } else {console.log("other field"); console.log(field)}
+            //console.log("at updateField(value, field, slug + log data given)")
+            console.log("value : " + value)
+            console.log("field : " + field)
+            console.log("slug : " + slug)
+        } else {console.log("other field : " + field); console.log("value : " + value); console.log("slug : " + slug)}
+
+        console.log("UPDATE article SET article.??=? WHERE article.slug = ?")
 
         return new Promise((resolve, reject) => {
             this.db.query("UPDATE article SET article.??=? WHERE article.slug = ?",

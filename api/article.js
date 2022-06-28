@@ -262,8 +262,11 @@ module.exports = (app, svc, jwt) => {
 
         try {
             const update = req.body
+            console.log("console.log(update)")
             console.log(update)
+            console.log("console.log(update.field)")
             console.log(update.field)
+            console.log("console.log(update.slug)")
             console.log(update.slug)
             let field
             switch (update.field) {
@@ -284,6 +287,7 @@ module.exports = (app, svc, jwt) => {
                     break;
             }
             
+            console.log("console.log(field)")
             console.log(field)
 
             const updateField = svc.dao.updateField(update.value, field, update.slug)

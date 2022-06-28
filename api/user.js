@@ -113,6 +113,34 @@ module.exports = (app, svc, jwt) => {
         //update
     })
 
+    app.put("/user/password/", async(req, res) => {
+        console.log("ok")
+        const resetPassword = req.body
+
+        console.log(resetPassword)
+
+        try {
+            //const password = await bcrypt.hash(user.password, 10);
+            resetPassword.passwordHash = await bcrypt.hash(resetPassword.password, 10);
+            svc.dao.resetPassword(resetPassword)
+        }
+        catch(e) {console.log(e)}
+
+        /**
+         *  const user = req.body
+
+        try {
+            user.passwordHash = await bcrypt.hash(user.password, 10);
+            console.log(user.passwordHash)
+            user.registeredAt = new Date()
+            svc.dao.insertUser(user)
+        }
+        catch(e) {console.log(e)}
+         * 
+         * 
+         */
+    })
+
     // Delete User
     app.delete("/user/email/:email", /*jwt.validateJWT,*/ async (req, res) => {
         const email = req.params.email

@@ -115,7 +115,7 @@ const checkDBTableArticle = async function() {
                     `id` int(11) NOT NULL, \
                     `author_id` int(11) DEFAULT NULL, \
                     `parent_id` int(11) DEFAULT NULL, \
-                    `title` int(11) NOT NULL, \
+                    `title` text NOT NULL, \
                     `meta_title` text DEFAULT NULL, \
                     `slug` varchar(255) DEFAULT NULL, \
                     `summary` varchar(255) DEFAULT NULL, \

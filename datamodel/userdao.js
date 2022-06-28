@@ -1,4 +1,5 @@
 //const { resolve } = require('path/posix')
+const { resolve } = require('path')
 const BaseDAO = require('./basedao')
 
 module.exports = class UserDAO extends BaseDAO {
@@ -113,6 +114,18 @@ module.exports = class UserDAO extends BaseDAO {
         return new Promise((resolve, reject) => {
             this.db.query("DELETE FROM user WHERE email = ?",
             [email])
+        })
+    }
+
+    resetPassword(value) {
+        return new Promise((resolve, reject) => {
+            this.db.query("UPDATE user SET user.passwordHash = ? WHERE email = ?",
+            [value.passwordHash, value.email], (err, rows, fields) => {
+                if(err) {
+                    return reject(err)
+                }
+                resolve(rows)
+            })
         })
     }
 
