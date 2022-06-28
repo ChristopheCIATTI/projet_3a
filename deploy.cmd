@@ -120,8 +120,8 @@ echo path article.sql : %articlesql%
 
 mysql.exe -u root -e "USE esimed_projet3a_cms_blog_test"
 
-::mysql.exe -u root esimed_projet3a_cms_blog_test < %usersql%
-::mysql.exe -u root esimed_projet3a_cms_blog_test < %articlesql%
+mysql.exe -u root esimed_projet3a_cms_blog_test < %usersql%
+mysql.exe -u root esimed_projet3a_cms_blog_test < %articlesql%
 
 mysql.exe -u root -e "SHOW TABLES FROM esimed_projet3a_cms_blog_test"
 
