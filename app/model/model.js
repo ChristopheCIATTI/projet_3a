@@ -71,4 +71,8 @@ class Model {
     deleteArticle(value) {
         return this.articleApi.deleteArticle(value)
     }
+
+    resetPassword(value) {
+        return this.userApi.resetPassword(value)
+    }
 }

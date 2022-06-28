@@ -97,7 +97,6 @@ class ArticleController extends BaseController {
             if(!content) {
                 elem.innerHTML = objtext.string1 + elem.innerText + "<br />" + objtext.string2
                 elem.insertAdjacentHTML('beforeend', input)
-    
             }
 
             if(content) {
@@ -192,6 +191,7 @@ class ArticleController extends BaseController {
                     "field" : elem.id,
                     "slug" : this.articleSlug
                 }
+                //localStorage.removeItem("article")
                 const edit = await this.model.updateArticle(fieldUpdated)
             }
 
@@ -241,6 +241,7 @@ class ArticleController extends BaseController {
                     "field" : elem.id,
                     "slug" : this.articleSlug
                 }
+                //localStorage.removeItem("article")
                 const edit = await this.model.updateArticle(fieldUpdated)
             }
 

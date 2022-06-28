@@ -192,8 +192,6 @@ class ArticleAPI extends BaseAPIService {
         this.headers.set('Access-Control-Allow-Origin', '*');
         this.headers.set('Authorization', sendToken)
 
-        console.log(value)
-        
         return new Promise((resolve, reject) => {
             fetch(`${this.url}/author/${value.author_id}/id/${value.id}`, {
                 method: 'DELETE',

@@ -17,7 +17,7 @@ class ManageArticlesController extends BaseController {
     }
 
     displayArticles() {
-
+        //localStorage.removeItem("myarticles")
         const articles = JSON.parse(localStorage.getItem("myarticles"))
         const articlesAvailable = articles.length
 

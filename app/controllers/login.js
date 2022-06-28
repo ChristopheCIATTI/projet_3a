@@ -60,11 +60,13 @@ class LoginController extends BaseController {
         }
 
         if(login.email == null || login.email.length == 0) {
-            this.toast("champ identifiant vide")
+            //this.toast("champ identifiant vide")
+            popUp.popUpError("champ identifiant vide")
         }
 
         else if(login.password == null || login.password.length == 0) {
-            this.toast("champ mot de passe vide")
+            //this.toast("champ mot de passe vide")
+            popUp.popUpError("champ mot de passe vide")
         }
 
         else if((login.email.length != 0) && (login.password.length != 0)) {
