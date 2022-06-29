@@ -13,6 +13,7 @@
     letter-spacing: .1em;
     transition:left 1s, opacity 1s;
     text-shadow: 0 0 1px #000000;
+    z-index: 2;
 }
 #PopUpStyle:hover {
     background: lightskyblue;
@@ -69,6 +70,7 @@
     transition:left 1s, opacity 1s;
     /*transition:top 1s, opacity 1s;*/
     text-shadow: 0 0 1px #000000;
+    z-index: 2;
 }
 
 #PopUpError:hover {
@@ -130,6 +132,7 @@
     /*transition:left 1s, opacity 1s;*/
     transition:top 1s, opacity 1s;
     text-shadow: 0 0 1px #000000;
+    z-index: 2;
 }
 
 #popUpValid:hover {
