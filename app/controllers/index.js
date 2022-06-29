@@ -13,7 +13,7 @@ class IndexController extends BaseController {
         this.offset = 0
         this.articleNumber = 0
         this.getLast10ArticlesPublish()
-        this.displayArticles()
+        //this.displayArticles()
 
 
     }
@@ -60,11 +60,14 @@ class IndexController extends BaseController {
         const _article = JSON.stringify(articles)
         localStorage.setItem("articlepublished", _article)
         this.offset = 10
+        if(articles) {this.displayArticles()}
     }
     
     displayArticles() {
         const articles = JSON.parse(localStorage.getItem("articlepublished"))
         
+        if(articles === null || articles.length === 0 || articles === undefined) {return}
+
         let articlesAvailable = articles.length
         this.articleNumber = articlesAvailable
 

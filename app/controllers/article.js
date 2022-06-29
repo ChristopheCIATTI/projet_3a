@@ -192,6 +192,7 @@ class ArticleController extends BaseController {
                     "slug" : this.articleSlug
                 }
                 //localStorage.removeItem("article")
+                localStorage.setItem("modified", true)
                 const edit = await this.model.updateArticle(fieldUpdated)
             }
 
@@ -242,6 +243,7 @@ class ArticleController extends BaseController {
                     "slug" : this.articleSlug
                 }
                 //localStorage.removeItem("article")
+                localStorage.setItem("modified", true)
                 const edit = await this.model.updateArticle(fieldUpdated)
             }
 
@@ -315,23 +317,6 @@ class ArticleController extends BaseController {
             document.execCommand(cmd_val[0], false, cmd_val[1]);
         }
     }
-
-    /*
-    deleteArticleButton() {
-        document.getElementById("deleteButton")
-        .addEventListener("click", function(event) {
-            const article = JSON.parse(localStorage.getItem("article"))
-            const confirmation = confirm("voulez vous supprimer l'article ?")
-
-                if(confirmation) {
-                    console.log(`article`)
-                    console.log(article)
-                    const r = await this.model.deleteArticle(article)
-                }
-                return
-        }.bind(this))
-    }
-    */
 
     deleteArticleButton() {
         document.getElementById("deleteButton")

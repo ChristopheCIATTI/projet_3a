@@ -5,20 +5,20 @@ class ManageArticlesController extends BaseController {
         this.articleSlug = null
         this.offset = 0
         this.getAllMyArticles()
-        this.displayArticles()
+        //this.displayArticles()
     }
 
     async getAllMyArticles() {
         const articles = await this.model.getAllMyArticles()
         const _article = JSON.stringify(articles)
-        console.log(_article)
         localStorage.setItem("myarticles", _article)
         this.offset = 10
+        if(articles) {this.displayArticles()}
     }
 
     displayArticles() {
-        //localStorage.removeItem("myarticles")
         const articles = JSON.parse(localStorage.getItem("myarticles"))
+        if(articles === null || articles.length === 0 || articles === undefined) {return}
         const articlesAvailable = articles.length
 
         $("#indexArticleNumber").innerHTML += articles.length

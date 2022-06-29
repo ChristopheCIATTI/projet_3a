@@ -10,10 +10,18 @@ class LoginController extends BaseController {
     }
     
     init() {
+        this.prepareCSS()
         const content = document.getElementsByClassName("container")
         const h1 = document.getElementById("formTitle")
         const forgotPwd = document.getElementById("textforgotPwd")
         h1.textContent = "Se connecter"
+    }
+
+    prepareCSS() {
+        console.log(document.getElementById("content"));
+        for(let i=0; i<50; i++) {
+            document.getElementById("content").insertAdjacentHTML('beforeend', '<span></span>');    
+        }
     }
 
     async checkToken() {

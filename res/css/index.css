@@ -84,13 +84,20 @@ padding: 20px;
 }
 
 .card:hover {
-    background-color:  #EEEEEE;
+    /*background-color:  #EEEEEE;*/
     padding: 20px;
     margin-top: 20px;
     text-decoration: none;
-    box-shadow: 10px 5px 5px #00416A;
-    border: 0.5em dotted #00416A
+    /*box-shadow: 10px 5px 5px #00416A;*/
+    border: 0.5em dotted #00416A;
+    box-shadow: 23px 25px 64px -8px rgba(0,0,0,1);
+-webkit-box-shadow: 23px 25px 64px -8px rgba(0,0,0,1);
+-moz-box-shadow: 23px 25px 64px -8px rgba(0,0,0,1);
+    
 }
+
+
+
 
 .vbar {
     border-left: 6px solid #023e8a;
