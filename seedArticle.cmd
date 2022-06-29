@@ -11,6 +11,6 @@ set sqldir=%cd%
 
 cd c:\xampp\mysql\bin
 
-mysql.exe -u root esimed_projet3a_cms_blog_test < %articlesql%
+mysql.exe -u root esimed_projet3a_cms_blog < %articlesql%
 
 echo :::::: End ::::::
