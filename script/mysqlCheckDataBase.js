@@ -20,7 +20,7 @@ db.connect(function(err) {
 /*
 const checkIfDbExist = async function() {
     return new Promise((resolve, reject) => {
-        db.query("USE esimed_projet3a_cms_blog_test", (err, rows, fields) => {
+        db.query("USE esimed_projet3a_cms_blog", (err, rows, fields) => {
             if(err) {
                 return reject(err);
             }
@@ -38,7 +38,7 @@ const checkIfDbExist = function() {
         db.query("USE esimed_projet3a_cms_blog_test", (err, rows, fields) => {
             if(err) {
                 console.log("if error")
-                db.query("CREATE DATABASE esimed_projet3a_cms_blog_test")
+                db.query("CREATE DATABASE esimed_projet3a_cms_blog")
                 db.query("USE esimed_projet3a_cms_blog_test")
                 setTimeout(() => {process.exit()}, 1500)
                 return

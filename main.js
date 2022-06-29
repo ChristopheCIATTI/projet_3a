@@ -27,7 +27,7 @@ const db = mysql.createConnection({
     host: 'localhost',
     port: '3306',
     user: 'root',
-    database : 'esimed_projet3a_cms_blog_test'
+    database : 'esimed_projet3a_cms_blog'
 },function(error){if(error){throw error}})
 
 

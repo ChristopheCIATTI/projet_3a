@@ -18,7 +18,7 @@ db.connect(function(err) {
     if (err) throw err;
 });
 
-db.query("USE esimed_projet3a_cms_blog_test")
+db.query("USE esimed_projet3a_cms_blog")
 /*
 const checkDB = async function() {
     return new Promise((resolve, reject) => {
