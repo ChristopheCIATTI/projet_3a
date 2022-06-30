@@ -119,8 +119,8 @@ set articlesql=%sqldir%\article.sql
 echo path user.sql : %usersql%
 echo path article.sql : %articlesql%
 
-mysql.exe -u root esimed_projet3a_cms_blog_test < %usersql%
-mysql.exe -u root esimed_projet3a_cms_blog_test < %articlesql%
+mysql.exe -u root esimed_projet3a_cms_blog < %usersql%
+mysql.exe -u root esimed_projet3a_cms_blog < %articlesql%
 
 mysql.exe -u root -e "SHOW TABLES FROM esimed_projet3a_cms_blog"
 
